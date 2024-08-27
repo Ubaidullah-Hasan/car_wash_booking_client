@@ -1,3 +1,7 @@
+.custom-menu {
+    margin-right: 40px;
+}
+
 .custom-menu .ant-menu-item-selected {
     background-color: rgba(237, 237, 237, 0.315) !important;
     border-bottom: 2px solid black;
@@ -53,4 +57,9 @@
     background-color: #37B45A !important;
     border-color: #37B45A !important;
     color: #fff !important;
+}
+
+/* Ensure the logo and menu items stack properly on small screens */
+@media (max-width: 767px) {
+    
 }

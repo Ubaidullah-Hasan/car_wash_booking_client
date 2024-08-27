@@ -1,4 +1,4 @@
-import { Layout, theme } from "antd";
+import { ConfigProvider, Layout, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { Outlet } from "react-router-dom";
 import MainHeader from "../components/header/Header";
@@ -14,23 +14,36 @@ const MainLayout = () => {
     } = theme.useToken();
 
     return (
-        <Layout>
-            <MainHeader />
-            <Content style={{ padding: '0 48px', marginTop: "20px", marginBottom: "20px" }}>
-                <div
-                    style={{
-                        background: colorBgContainer,
-                        minHeight: 280,
-                        borderRadius: borderRadiusLG,
-                    }}
-                >
-                    <Outlet />
-                </div>
-            </Content>
+        <ConfigProvider
+            theme={{
+                token: {
+                    // Seed Token
+                    colorPrimary: '#37B45A',
+                    // borderRadius: 2,
 
-            {/* footer */}
-            <MainFooter />
-        </Layout>
+                    // Alias Token
+                    // colorBgContainer: '#f6ffed',
+                },
+            }}
+        >
+            <Layout>
+                <MainHeader />
+                <Content>
+                    <div
+                        style={{
+                            background: colorBgContainer,
+                            minHeight: "100vh",
+                            borderRadius: borderRadiusLG,
+                        }}
+                    >
+                        <Outlet />
+                    </div>
+                </Content>
+
+                {/* footer */}
+                <MainFooter />
+            </Layout>
+        </ConfigProvider>
     );
 };
 

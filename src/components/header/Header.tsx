@@ -1,8 +1,6 @@
-import { Button, Menu, Radio } from "antd";
+import {  Menu, Radio } from "antd";
 import { Header } from "antd/es/layout/layout";
-import { CiUser } from "react-icons/ci";
-import { GoSearch } from "react-icons/go";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import './header.css';
 import { useEffect, useState } from "react";
 
@@ -64,6 +62,7 @@ const MainHeader = () => {
 
     return (
         <Header
+            className="custom-header"
             style={{ display: "flex", alignItems: "center", justifyContent: "space-between", backgroundColor: 'white' }}>
             <div className="logo" onClick={handleLogo}>
                 <span className="logo-container">
@@ -83,7 +82,7 @@ const MainHeader = () => {
                 defaultSelectedKeys={[selectedKey]}
                 onClick={handleMenuClick}
                 items={items}
-                style={{ flex: 1, minWidth: 0, justifyContent: "end", marginRight: "40px" }}
+                style={{ flex: 1, minWidth: 0, justifyContent: "end" }}
                 className="custom-menu "
             />
 

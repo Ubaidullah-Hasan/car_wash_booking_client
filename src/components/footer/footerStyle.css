@@ -1,0 +1,12 @@
+.footer-title{
+    font-size: 22px;
+    margin: 16px 0;
+}
+
+p{
+    margin: 10px 0;
+}
+
+.copy-bar{
+    border-top: 1px solid rgba(252, 252, 252, 0.233);
+}

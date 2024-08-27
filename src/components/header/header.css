@@ -1,0 +1,56 @@
+.custom-menu .ant-menu-item-selected {
+    background-color: rgba(237, 237, 237, 0.315) !important;
+    border-bottom: 2px solid black;
+}
+
+.custom-menu .ant-menu-item:hover {
+    background-color: rgba(237, 237, 237, 0.315) !important;
+    border-bottom: 2px solid black;
+}
+
+.custom-menu .ant-menu-item::after {
+    display: none !important;
+}
+
+.custom-menu .ant-menu-item-selected a {
+    color: black;
+}
+
+.custom-menu .ant-menu-item a:hover {
+    color: black !important;
+}
+
+.logo {
+    font-weight: 900;
+    font-size: 22px;
+}
+
+.logo .clv {
+    color: rgb(10, 217, 240);
+    background-color: black;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.logo .dr {
+    color: white;
+    background-color: rgb(2, 156, 173);
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+
+/* Change active button background color */
+.custom-radio-group .ant-radio-button-wrapper-checked {
+    background-color: rgb(2, 156, 173) !important;
+    color: #fff !important;
+    border-color: rgb(2, 156, 173) !important;
+}
+
+
+.custom-radio-group .ant-radio-button-wrapper:hover,
+.custom-radio-group .ant-radio-button-wrapper-checked:hover {
+    background-color: #37B45A !important;
+    border-color: #37B45A !important;
+    color: #fff !important;
+}

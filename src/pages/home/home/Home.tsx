@@ -1,11 +1,15 @@
 import React from 'react';
 import Hero from '../Hero';
 import '../homeStyle.css'
+import FeaturedServices from '../FeaturedServices';
 
 const Home = () => {
     return (
-        <div className='home-container'>
-            <Hero />
+        <div>
+            <div className='hero-container'>
+                <Hero />
+            </div>
+            <FeaturedServices />
         </div>
     );
 };

@@ -4,6 +4,7 @@
     margin: 0;
     box-sizing: border-box;
     padding: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
 .margin-x {
@@ -27,4 +28,13 @@ h1 {
 
 .white-color {
     color: white;
+}
+
+.custom-btn {
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.custom-btn:hover {
+    background-color: rgb(2, 156, 173) !important;
 }

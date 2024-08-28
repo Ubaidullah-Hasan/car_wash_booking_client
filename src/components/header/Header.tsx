@@ -1,8 +1,9 @@
-import {  Menu, Radio } from "antd";
+import { Button, Menu, Radio, Space } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import './header.css';
 import { useEffect, useState } from "react";
+import { CaretRightOutlined, DownloadOutlined, ForwardOutlined } from "@ant-design/icons";
 
 const MainHeader = () => {
     const navigate = useNavigate();
@@ -88,10 +89,15 @@ const MainHeader = () => {
 
             {/* right side */}
             <div>
-                <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} className="custom-radio-group">
-                    <Radio.Button value="start" onClick={() => handleAuth("/signin")} >Sign In</Radio.Button>
-                    <Radio.Button value="end" onClick={() => handleAuth("/signup")}>Sign Up</Radio.Button>
-                </Radio.Group>
+                <Space size={50}>
+                    <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} className="custom-radio-group">
+                        <Radio.Button value="start" onClick={() => handleAuth("/signin")} >Sign In</Radio.Button>
+                        <Radio.Button value="end" onClick={() => handleAuth("/signup")}>Sign Up</Radio.Button>
+                    </Radio.Group>
+                    <Button className="custom-btn" type="primary" iconPosition="end" icon={<CaretRightOutlined />} >
+                        Get Started
+                    </Button>
+                </Space>
             </div>
         </Header>
     );

@@ -3,16 +3,16 @@ import { FacebookOutlined, TwitterOutlined, InstagramOutlined, MailOutlined, Pho
 import './footerStyle.css'
 
 const { Footer } = Layout;
-const MainFooter = () => {
+const MainFooter = () => { 
     return (
-        <Footer style={{ textAlign: 'left', padding: '0px', color: '#fff' }}>
-            <Row gutter={[16, 16]} style={{padding: "80px"}}>
+        <Footer style={{ textAlign: 'left', padding: '0px', color: '#fff', background: "#0A2540" }}>
+            <Row style={{padding: "80px"}}>
                 <Col xs={24} md={8}>
                     <h3 className='footer-title'>Contact Information</h3>
                     <p><MailOutlined /> email@example.com</p>
                     <p><PhoneOutlined /> +123 456 7890</p>
                 </Col>
-                <Col xs={24} md={8}>
+                <Col xs={24} md={8} >
                     <h3 className='footer-title'>Follow Us</h3>
                     <div>
                         <a href="https://facebook.com" target="_blank" style={{ color: '#fff', margin: '0 10px' }}>
@@ -26,7 +26,7 @@ const MainFooter = () => {
                         </a>
                     </div>
                 </Col>
-                <Col xs={24} md={8}>
+                <Col xs={24} md={8} >
                     <h3 className='footer-title'>Relevant Links</h3>
                     <p><a href="/about" style={{ color: '#fff' }}>About Us</a></p>
                     <p><a href="/privacy" style={{ color: '#fff' }}>Privacy Policy</a></p>

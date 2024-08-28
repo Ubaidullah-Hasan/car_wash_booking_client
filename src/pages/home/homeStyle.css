@@ -1,6 +1,5 @@
 .home-container {
-    background-image: linear-gradient(to bottom, rgba(2, 25, 46, 0.279), rgb(2, 25, 46)),
-        url('../../assets/home/hero.jpg');
+    background-image: linear-gradient(to bottom, rgba(2, 25, 46, 0.279), rgb(2, 25, 46)), url('../../assets/home/hero.jpg');
     background-position: center;
     background-size: cover;
     height: 600px;
@@ -28,9 +27,8 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.rating-btn{
+.rating-btn {
     font-size: 22px;
     font-weight: 700;
     margin-top: 20px;
 }
-

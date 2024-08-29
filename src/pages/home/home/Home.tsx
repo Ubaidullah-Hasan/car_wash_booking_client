@@ -1,4 +1,3 @@
-import React from 'react';
 import Hero from '../Hero';
 import '../homeStyle.css'
 import FeaturedServices from '../FeaturedServices';

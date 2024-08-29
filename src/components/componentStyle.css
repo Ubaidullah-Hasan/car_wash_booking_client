@@ -1,0 +1,23 @@
+.section-title {
+    text-align: center;
+    margin: 0px 0 40px;
+    z-index: 2;
+    position: relative;
+}
+
+
+.section-title h2 {
+    color: rgb(28, 32, 47);
+}
+
+.card-btn{
+    padding: 0 7px;
+    border: 1px solid #37B45A;
+    border-radius: 5px;
+    color: white;
+    background-color: #37B45A;
+    /* transition: 1s; */
+}
+.card-btn:hover{
+    box-shadow: 0px 0px 5px green;
+}

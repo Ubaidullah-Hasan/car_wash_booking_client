@@ -15,7 +15,12 @@ h1 {
     font-size: 60px;
     font-weight: 700;
     line-height: 50px;
-    font-family: 'Poppins', sans-serif;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 51px;
 }
 
 .small-text {
@@ -27,7 +32,7 @@ h1 {
 }
 
 .white-color {
-    color: white;
+    color: white !important;
 }
 
 .custom-btn {
@@ -37,4 +42,27 @@ h1 {
 
 .custom-btn:hover {
     background-color: rgb(2, 156, 173) !important;
+}
+
+.section-container {
+    padding: 0 200px;
+    position: relative;
+}
+
+.margin-y-medium{
+    margin: 80px 0;
+}
+.padding-y-medium{
+    padding-top: 80px ;
+    padding-bottom: 80px;
+}
+.margin-x-small{
+    margin: 60px 0;
+}
+
+.text-green{
+    color: #37B45A ;
+}
+.bg-green{
+    background-color: #37B45A ;
 }

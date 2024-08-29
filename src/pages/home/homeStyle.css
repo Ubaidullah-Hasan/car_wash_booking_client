@@ -8,10 +8,6 @@
     align-items: center;
 }
 
-.section-container {
-    padding: 0 200px;
-}
-
 .hero {
     display: flex;
     flex-direction: column;
@@ -31,4 +27,29 @@
     font-size: 22px;
     font-weight: 700;
     margin-top: 20px;
+}
+
+.carousel-gap {
+    padding: 0 10px;
+}
+
+/* shape maker */
+.custom-shape-divider-top-1724903460 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1724903460 svg {
+    position: relative;
+    display: block;
+    width: calc(157% + 1.3px);
+    height: 475px;
+}
+
+.custom-shape-divider-top-1724903460 .shape-fill {
+    fill: #37B45A;
 }

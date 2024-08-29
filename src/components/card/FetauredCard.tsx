@@ -1,12 +1,41 @@
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { DoubleRightOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
 import Meta from 'antd/es/card/Meta';
-import React from 'react';
+import { IoTimeOutline } from 'react-icons/io5';
+import serviceIcon from "../../assets/icon/serviceIcon.gif"
 
-const FetauredCard = () => {
+type TProps = {
+    serviceName: string
+    description: string
+    image: string
+    price: number
+    duration: string
+}
+
+type TTimeFormate = (param1: string) => void
+
+const FetauredCard = ({ data }: { data: TProps }) => {
+    
+    function formatDuration(duration: string): string {
+        // Parse the duration and convert it to the appropriate format
+        const timeParts = duration.toLowerCase().split(' ');
+
+        if (timeParts.length === 2) {
+            const value = parseInt(timeParts[0], 10);
+            const unit = timeParts[1];
+
+            if (unit.includes('hour')) {
+                return `${value}H`;
+            } else if (unit.includes('minute')) {
+                return `${value}M`;
+            }
+        }
+        return duration;
+    }
+
+
     return (
         <Card
-            style={{ width: 300 }}
             cover={
                 <img
                     alt="example"
@@ -14,15 +43,16 @@ const FetauredCard = () => {
                 />
             }
             actions={[
-                <SettingOutlined key="setting" />,
-                <EditOutlined key="edit" />,
-                <EllipsisOutlined key="ellipsis" />,
+                <span className='text-green' style={{fontWeight: "700" }}>{data?.price} ৳</span>,
+                <span className='text-green' style={{display: "flex", justifyContent: "center", alignItems: "center", fontWeight: "700"}}> <IoTimeOutline />  {formatDuration(data.duration)} </span>,
+                <button className='card-btn'>Book Now <DoubleRightOutlined /></button>
             ]}
         >
             <Meta
-                avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
-                title="Card title"
-                description="This is the description"
+            style={{height: "100px"}}
+                avatar={<Avatar src={serviceIcon} />}
+                title={data?.serviceName}
+                description={data?.description}
             />
         </Card>
     );

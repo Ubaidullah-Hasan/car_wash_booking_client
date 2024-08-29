@@ -94,7 +94,7 @@ const MainHeader = () => {
                         <Radio.Button value="start" onClick={() => handleAuth("/signin")} >Sign In</Radio.Button>
                         <Radio.Button value="end" onClick={() => handleAuth("/signup")}>Sign Up</Radio.Button>
                     </Radio.Group>
-                    <Button className="custom-btn" type="primary" iconPosition="end" icon={<CaretRightOutlined />} >
+                    <Button className="custom-btn" type="primary" iconPosition="end" icon={<CaretRightOutlined />} href="/services" >
                         Get Started
                     </Button>
                 </Space>

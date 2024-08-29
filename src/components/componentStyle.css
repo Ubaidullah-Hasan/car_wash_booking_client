@@ -8,6 +8,7 @@
 
 .section-title h2 {
     color: rgb(28, 32, 47);
+    text-transform: capitalize;
 }
 
 .card-btn{

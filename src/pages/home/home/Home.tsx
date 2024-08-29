@@ -1,6 +1,7 @@
 import Hero from '../Hero';
 import '../homeStyle.css'
 import FeaturedServices from '../FeaturedServices';
+import ReviewSection from '../ReviewSection';
 
 const Home = () => {
     return (
@@ -9,6 +10,7 @@ const Home = () => {
                 <Hero />
             </div>
             <FeaturedServices />
+            <ReviewSection />
         </div>
     );
 };

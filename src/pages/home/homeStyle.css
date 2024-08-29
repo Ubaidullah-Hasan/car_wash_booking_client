@@ -51,5 +51,29 @@
 }
 
 .custom-shape-divider-top-1724903460 .shape-fill {
-    fill: #37B45A;
+    fill: #37b45a;
+}
+
+.review-section {
+    background-image: linear-gradient(to bottom, rgba(166, 165, 165, 0.22), rgba(42, 43, 43, 0.445)), url('../../assets/home/review.jpg');
+    background-position: center;
+        background-size: cover;
+        height: 600px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+}
+
+.review-section .ant-statistic-title, .ant-statistic-content-value{
+    color: white;
+}
+
+.custom-rating .ant-rate-star-zero span{
+    color: rgba(255, 255, 255, 0.716) !important;
+}
+
+.card-rating{
+    margin-bottom: 20px;
+    margin-left: 45px;
 }

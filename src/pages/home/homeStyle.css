@@ -57,23 +57,57 @@
 .review-section {
     background-image: linear-gradient(to bottom, rgba(166, 165, 165, 0.22), rgba(42, 43, 43, 0.445)), url('../../assets/home/review.jpg');
     background-position: center;
-        background-size: cover;
-        height: 600px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
+    background-size: cover;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
 }
 
-.review-section .ant-statistic-title, .ant-statistic-content-value{
+.review-section .ant-statistic-title,
+.ant-statistic-content-value {
     color: white;
 }
 
-.custom-rating .ant-rate-star-zero span{
-    color: rgba(255, 255, 255, 0.716) !important;
+.custom-rating .ant-rate-star-zero span {
+    color: rgba(255, 255, 255, 0.448) !important;
 }
 
-.card-rating{
+.custom-rating .ant-statistic-content {
+    display: flex;
+    gap: 20px;
+}
+
+.card-rating {
     margin-bottom: 20px;
     margin-left: 45px;
+}
+
+
+.user-feedback-input{
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.797);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50px;
+    gap: 20px;
+    height: 500px;
 }

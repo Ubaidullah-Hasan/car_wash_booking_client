@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import { Input, Rate, Button, Card, List, Statistic, Modal, Avatar } from 'antd';
+import { useEffect, useState } from 'react';
+import { Input, Rate, Button, Card, List, Statistic, Avatar } from 'antd';
 import SectionTitle from '../../components/SectionTitle';
-import { ArrowRightOutlined} from '@ant-design/icons';
+import { ArrowRightOutlined } from '@ant-design/icons';
 import Meta from 'antd/es/card/Meta';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../Redux/hooks';
+import { currentUser } from '../../Redux/features/auth/authSlice';
 
 const reviews = [
     {
@@ -43,45 +46,43 @@ const reviews = [
 ];
 
 
-const ReviewSection = ({ isLoggedIn = true, overallRating = 4 }) => {
+const ReviewSection = () => {
+    const navigate = useNavigate();
     const [rating, setRating] = useState(0);
     const [feedback, setFeedback] = useState('');
+    const overallRating = reviews.reduce((acc, currentValue) => currentValue.rating + acc / reviews.length, 0);
+    console.log(overallRating)
+    const user = useAppSelector(currentUser);
+    console.log(user);
 
     const handleFeedbackSubmit = () => {
         const reviewSubmitData = {
             userId: "",
-            rating: rating,
             feedback: feedback,
-            date: new Date(),
+            rating: rating,
         }
         // Submit logic here
         console.log(reviewSubmitData);
     };
 
-    const redirectToLogin = () => {
-        // history.push('/login');
+    const handleLoginRedirect = () => {
+        navigate('/signin', { state: { from: '/#review-section' } });
     };
 
-    const handleSeeAllReviews = () => {
-        // history.push('/reviews');
-    };
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.hash) {
+            const element = document.getElementById(location.hash.substring(1));
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [location]);
+
 
     return (
-        <section className="section-container review-section">
-            {!isLoggedIn && (
-                <Modal
-                    visible={true}
-                    centered
-                    footer={null}
-                    closable={false}
-                    maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
-                >
-                    <div style={{ textAlign: 'center' }}>
-                        <p style={{ color: 'black' }}>Please log in to leave a review</p>
-                        <Button type="primary" onClick={redirectToLogin}>Login</Button>
-                    </div>
-                </Modal>
-            )}
+        <section id="review-section" className="section-container review-section">
             <SectionTitle
                 title='Give your feedback'
                 className='white-color'
@@ -94,6 +95,7 @@ const ReviewSection = ({ isLoggedIn = true, overallRating = 4 }) => {
                     precision={1}
                     prefix={<Rate disabled value={overallRating} />}
                     style={{ marginTop: '20px' }}
+                    className='custom-rating'
                 />
                 <List
                     itemLayout="vertical"
@@ -105,8 +107,8 @@ const ReviewSection = ({ isLoggedIn = true, overallRating = 4 }) => {
                                 <Meta
                                     avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
                                     title={item?.userName}
-                                    description={ item.feedback }
-                                />                                
+                                    description={item.feedback}
+                                />
                             </Card>
                         </List.Item>
                     )}
@@ -121,29 +123,41 @@ const ReviewSection = ({ isLoggedIn = true, overallRating = 4 }) => {
                 </Button>
             </div>
 
-            <div className="input-section" style={{ textAlign: "end" }}>
-                <Rate
-                    value={rating}
-                    onChange={setRating}
-                    style={{ color: '#ffcc00', fontSize: '24px' }}
-                    className='custom-rating'
-                />
-                <Input.TextArea
-                    value={feedback}
-                    onChange={(e) => setFeedback(e.target.value)}
-                    rows={4}
-                    placeholder="Leave your feedback"
-                    style={{ borderRadius: '10px', marginTop: '10px', height: "200px", padding: "20px" }}
-                />
-                <Button
-                    type="primary"
-                    onClick={handleFeedbackSubmit}
-                    style={{ marginTop: '10px' }}
-                >
-                    Submit Review 
-                    <ArrowRightOutlined />
-                </Button>
+            {/* user input review */}
+            <div className='user-feedback-input'>
+                {!user?.email &&
+                    <div className="overlay">
+                        <h2 className="white-color">Please log in to leave a review</h2>
+                        <Button size='large' className='login-btn' type="primary" onClick={handleLoginRedirect}>
+                            Login
+                        </Button>
+                    </div>
+                }
+                <div style={{ textAlign: "end" }}>
+                    <Rate
+                        value={rating}
+                        onChange={setRating}
+                        style={{ color: '#ffcc00', fontSize: '24px' }}
+                        className='custom-rating'
+                    />
+                    <Input.TextArea
+                        value={feedback}
+                        onChange={(e) => setFeedback(e.target.value)}
+                        rows={4}
+                        placeholder="Leave your feedback"
+                        style={{ borderRadius: '10px', marginTop: '10px', height: "200px", padding: "20px" }}
+                    />
+                    <Button
+                        type="primary"
+                        onClick={handleFeedbackSubmit}
+                        style={{ marginTop: '10px' }}
+                    >
+                        Submit Review
+                        <ArrowRightOutlined />
+                    </Button>
+                </div>
             </div>
+
         </section>
     );
 };

@@ -6,7 +6,7 @@ import Meta from 'antd/es/card/Meta';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../Redux/hooks';
 import { currentUser } from '../../Redux/features/auth/authSlice';
-import { useCreateReviewMutation } from '../../Redux/features/reviewManagement/ReviewManagement.api';
+import { useCreateReviewMutation, useGetReviewByUserIdQuery } from '../../Redux/features/reviewManagement/ReviewManagement.api';
 import { useGetUserByEmailQuery } from '../../Redux/features/user/userManagement.api';
 
 const reviews = [
@@ -53,10 +53,11 @@ const ReviewSection = () => {
     const [rating, setRating] = useState(0);
     const [feedback, setFeedback] = useState('');
     const user = useAppSelector(currentUser);
-    const {data: userData} = useGetUserByEmailQuery(user?.email, {skip: !(user?.email)});
+    const { data: userData } = useGetUserByEmailQuery(user?.email, { skip: !(user?.email) });
 
-    const [createReview,{isLoading: isCreating}] = useCreateReviewMutation();
-    console.log({isCreating, user});
+    const [createReview, { isLoading: isCreating }] = useCreateReviewMutation();
+    const { data: singleReview } = useGetReviewByUserIdQuery(userData?.data?._id, { skip: !user });
+    const userReview = singleReview?.data;
 
     const overallRating = reviews.reduce((acc, currentValue) => currentValue.rating + acc / reviews.length, 0);
 
@@ -66,8 +67,17 @@ const ReviewSection = () => {
             feedback: feedback,
             rating: rating,
         }
-        createReview(reviewSubmitData); 
+        createReview(reviewSubmitData);
     };
+
+    useEffect(() => {
+        if (userReview?.feedback) {
+            setFeedback(userReview.feedback);
+        }
+        if (userReview?.rating) {
+            setRating(userReview.rating);
+        }
+    }, [userReview]);
 
     const handleLoginRedirect = () => {
         navigate('/signin', { state: { from: '/#review-section' } });
@@ -139,8 +149,8 @@ const ReviewSection = () => {
                 }
                 <div style={{ textAlign: "end" }}>
                     <Rate
-                        value={rating}
-                        onChange={setRating}
+                        value={user && rating}
+                        onChange={(value) => setRating(value)}
                         style={{ color: '#ffcc00', fontSize: '24px' }}
                         className='custom-rating'
                     />

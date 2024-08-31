@@ -6,12 +6,20 @@ const reviewManagementApi = baseApi.injectEndpoints({
             query: (reviewData) => {
                 return {
                     url: '/reviews',
-                    method: 'POST',
+                    method: 'PATCH',
                     body: reviewData,
+                }
+            }
+        }),
+        getReviewByUserId: builder.query({
+            query: (userId) => {
+                return{
+                    url: `/reviews/${userId}`,
+                    method: 'GET',
                 }
             }
         })
     }),
 });
 
-export const { useCreateReviewMutation } = reviewManagementApi;
+export const { useCreateReviewMutation, useGetReviewByUserIdQuery } = reviewManagementApi;

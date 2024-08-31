@@ -29,6 +29,10 @@
     font-size: 22px;
 }
 
+.logo-container{
+    cursor: pointer;
+}
+
 .logo .clv {
     color: rgb(10, 217, 240);
     background-color: black;

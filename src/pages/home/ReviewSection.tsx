@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Input, Rate, Button, Card, List, Statistic, Avatar } from 'antd';
+import { Input, Rate, Button, List, Statistic } from 'antd';
 import SectionTitle from '../../components/SectionTitle';
 import { ArrowRightOutlined, CheckOutlined } from '@ant-design/icons';
-import Meta from 'antd/es/card/Meta';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../Redux/hooks';
 import { currentUser } from '../../Redux/features/auth/authSlice';

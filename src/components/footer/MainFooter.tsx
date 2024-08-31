@@ -1,6 +1,7 @@
 import { Layout, Row, Col } from 'antd';
-import { FacebookOutlined, TwitterOutlined, InstagramOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
+import { TwitterOutlined, InstagramOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 import './footerStyle.css'
+import { FaFacebookF } from 'react-icons/fa';
 
 const { Footer } = Layout;
 const MainFooter = () => { 
@@ -16,7 +17,7 @@ const MainFooter = () => {
                     <h3 className='footer-title'>Follow Us</h3>
                     <div>
                         <a href="https://facebook.com" target="_blank" style={{ color: '#fff', margin: '0 10px' }}>
-                            <FacebookOutlined />
+                            <FaFacebookF />
                         </a>
                         <a href="https://twitter.com" target="_blank" style={{ color: '#fff', margin: '0 10px' }}>
                             <TwitterOutlined />
@@ -28,9 +29,10 @@ const MainFooter = () => {
                 </Col>
                 <Col xs={24} md={8} >
                     <h3 className='footer-title'>Relevant Links</h3>
-                    <p><a href="/about" style={{ color: '#fff' }}>About Us</a></p>
-                    <p><a href="/privacy" style={{ color: '#fff' }}>Privacy Policy</a></p>
-                    <p><a href="/terms" style={{ color: '#fff' }}>Terms of Service</a></p>
+                    <p><a href="/" style={{ color: '#fff' }}>Home</a></p>
+                    <p><a href="/services" style={{ color: '#fff' }}>Service</a></p>
+                    <p><a href="/booking" style={{ color: '#fff' }}>Booking</a></p>
+                    <p><a href="/reviews" style={{ color: '#fff' }}>Reviews</a></p>
                 </Col>
             </Row>
             <div style={{ padding: '30px 0' }} className='copy-bar'>

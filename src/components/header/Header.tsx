@@ -18,6 +18,7 @@ const MainHeader = () => {
         const routes = [
             { path: '/services', key: '2' },
             { path: '/booking', key: '3' },
+            { path: '/reviews', key: '4' },
         ];
 
         const matchingRoute = routes.find(route => location.pathname.startsWith(route.path));
@@ -55,6 +56,10 @@ const MainHeader = () => {
         {
             key: "3",
             label: <NavLink to={"/booking"}>Booking</NavLink>
+        },
+        {
+            key: "4",
+            label: <NavLink to={"/reviews"}>Reviews</NavLink>
         }
     ]
 
@@ -69,8 +74,8 @@ const MainHeader = () => {
         <Header
             className="custom-header"
             style={{ display: "flex", alignItems: "center", justifyContent: "space-between", backgroundColor: 'white' }}>
-            <div className="logo" onClick={handleLogo}>
-                <span className="logo-container">
+            <div className="logo" >
+                <span onClick={handleLogo} className="logo-container ">
                     <span className="clv">C</span>
                     <span className="clv">L</span>
                     <span className="dr">D</span>

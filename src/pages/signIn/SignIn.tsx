@@ -7,8 +7,9 @@ import { useLoginMutation } from '../../Redux/features/auth/auth.api';
 import { verifyToken } from '../../utility/verifyToken';
 import { useAppDispatch } from '../../Redux/hooks';
 import { setUser } from '../../Redux/features/auth/authSlice';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
 
 type FieldType = {
     email?: string;
@@ -18,8 +19,8 @@ type FieldType = {
 
 
 const SignIn = () => {
-    const [err, setErr] =useState<string>('');
-    const [login, {isLoading}] = useLoginMutation();
+    const [err, setErr] = useState<string>('');
+    const [login, { isLoading }] = useLoginMutation();
     const dispatch = useAppDispatch();
     const location = useLocation();
     const navigate = useNavigate();
@@ -40,7 +41,8 @@ const SignIn = () => {
         console.log('Failed:', errorInfo);
     };
 
-    return (<div className='custom-login'>
+    return (
+    <div className='form-bg'>
         <Row justify="center" align={"middle"} style={{ height: "100vh" }}>
             <Col span={7}>
                 <Form
@@ -55,21 +57,26 @@ const SignIn = () => {
                             <img src={profileImg} className='profileImg' />
                         </Form.Item>
                     }
-                    <Form.Item<FieldType>
-                        label="Email"
-                        name="email"
-                        rules={[{ required: true, message: 'Please input your email!' }]}
-                    >
-                        <Input type='email'/>
-                    </Form.Item>
 
-                    <Form.Item<FieldType>
-                        label="Password"
-                        name="password"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
-                    >
-                        <Input.Password />
-                    </Form.Item>
+                        <Form.Item
+                            name="email"
+                            label="Email"
+                            rules={[
+                                { type: 'email', message: 'The input is not a valid email!' },
+                                { required: true, message: 'Please input your email!' },
+                            ]}
+                        >
+                            <Input prefix={<MailOutlined />} placeholder="Enter your email" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="password"
+                            label="Password"
+                            rules={[{ required: true, message: 'Please input your password!' }]}
+                            hasFeedback
+                        >
+                            <Input.Password prefix={<LockOutlined />} placeholder="Enter your password" />
+                        </Form.Item>
 
                     <Form.Item<FieldType>
                         name="remember"
@@ -80,10 +87,11 @@ const SignIn = () => {
 
                     <Form.Item
                     >
-                        <Button disabled={isLoading} type="primary" htmlType="submit">
+                            <Button disabled={isLoading} type="primary" htmlType="submit" block>
                             Submit
                         </Button>
                     </Form.Item>
+                        <p>I have no account! <Link style={{ textDecoration: "underline" }} to={"/signUp"}>Sign UP</Link></p>
                     {err && <p style={{ color: "red" }}>{err}</p>}
                 </Form>
             </Col>

@@ -65,6 +65,10 @@
     gap: 30px;
 }
 
+.post-submission{
+    width: fit-content;
+}
+
 .review-section .ant-statistic-title,
 .ant-statistic-content-value {
     color: white;
@@ -82,6 +86,9 @@
 .card-rating {
     margin-bottom: 20px;
     margin-left: 45px;
+}
+.see-all-review-btn:hover {
+    color: #61f88b!important;
 }
 
 

@@ -1,52 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Input, Rate, Button, Card, List, Statistic, Avatar } from 'antd';
 import SectionTitle from '../../components/SectionTitle';
-import { ArrowRightOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, CheckOutlined } from '@ant-design/icons';
 import Meta from 'antd/es/card/Meta';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../Redux/hooks';
 import { currentUser } from '../../Redux/features/auth/authSlice';
-import { useCreateReviewMutation, useGetReviewByUserIdQuery } from '../../Redux/features/reviewManagement/ReviewManagement.api';
+import { useCreateReviewMutation, useGetAllReviewsQuery, useGetReviewByUserIdQuery } from '../../Redux/features/reviewManagement/ReviewManagement.api';
 import { useGetUserByEmailQuery } from '../../Redux/features/user/userManagement.api';
-
-const reviews = [
-    {
-        id: 1,
-        userName: "John Doe",
-        rating: 5,
-        feedback: "Amazing service! Highly recommend.",
-        date: "2024-08-15",
-    },
-    {
-        id: 2,
-        userName: "Jane Smith",
-        rating: 4,
-        feedback: "Great experience overall, but there's room for improvement.",
-        date: "2024-08-14",
-    },
-    {
-        id: 3,
-        userName: "Alice Johnson",
-        rating: 3,
-        feedback: "Average service, nothing special.",
-        date: "2024-08-13",
-    },
-    {
-        id: 4,
-        userName: "Bob Brown",
-        rating: 5,
-        feedback: "Exceeded my expectations!",
-        date: "2024-08-12",
-    },
-    {
-        id: 5,
-        userName: "Sarah Wilson",
-        rating: 2,
-        feedback: "Not satisfied with the service.",
-        date: "2024-08-11",
-    }
-];
-
+import ReviewCard from '../../components/ReviewCard';
 
 const ReviewSection = () => {
     const navigate = useNavigate();
@@ -55,11 +17,14 @@ const ReviewSection = () => {
     const user = useAppSelector(currentUser);
     const { data: userData } = useGetUserByEmailQuery(user?.email, { skip: !(user?.email) });
 
+    // create review and get single and all reviews
     const [createReview, { isLoading: isCreating }] = useCreateReviewMutation();
     const { data: singleReview } = useGetReviewByUserIdQuery(userData?.data?._id, { skip: !user });
     const userReview = singleReview?.data;
+    const { data: reviews } = useGetAllReviewsQuery({ limit: 2, date: -1 });
+    const reviewsData = reviews?.data?.reviews;
 
-    const overallRating = reviews.reduce((acc, currentValue) => currentValue.rating + acc / reviews.length, 0);
+    const overallRating = reviews?.data?.overallRating;
 
     const handleFeedbackSubmit = () => {
         const reviewSubmitData = {
@@ -69,15 +34,6 @@ const ReviewSection = () => {
         }
         createReview(reviewSubmitData);
     };
-
-    useEffect(() => {
-        if (userReview?.feedback) {
-            setFeedback(userReview.feedback);
-        }
-        if (userReview?.rating) {
-            setRating(userReview.rating);
-        }
-    }, [userReview]);
 
     const handleLoginRedirect = () => {
         navigate('/signin', { state: { from: '/#review-section' } });
@@ -92,7 +48,14 @@ const ReviewSection = () => {
                 element.scrollIntoView({ behavior: 'smooth' });
             }
         }
-    }, [location]);
+
+        if (userReview?.feedback) {
+            setFeedback(userReview.feedback);
+        }
+        if (userReview?.rating) {
+            setRating(userReview.rating);
+        }
+    }, [location, userReview]);
 
 
     return (
@@ -113,17 +76,10 @@ const ReviewSection = () => {
                 />
                 <List
                     itemLayout="vertical"
-                    dataSource={reviews.slice(0, 2)} // todo change review data number
+                    dataSource={reviewsData} // todo change review data number
                     renderItem={(item) => (
                         <List.Item>
-                            <Card>
-                                <Rate className='card-rating' disabled value={item.rating} style={{ color: '#ffcc00' }} />
-                                <Meta
-                                    avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
-                                    title={item?.userName}
-                                    description={item.feedback}
-                                />
-                            </Card>
+                            <ReviewCard item={item} />
                         </List.Item>
                     )}
                 />
@@ -132,6 +88,7 @@ const ReviewSection = () => {
                     type="link"
                     href="/reviews"
                     style={{ marginTop: '10px', color: 'white', textDecoration: 'underline' }}
+                    className='see-all-review-btn'
                 >
                     See All Reviews
                 </Button>
@@ -161,15 +118,27 @@ const ReviewSection = () => {
                         placeholder="Leave your feedback"
                         style={{ borderRadius: '10px', marginTop: '10px', height: "200px", padding: "20px" }}
                     />
-                    <Button
-                        type="primary"
-                        onClick={handleFeedbackSubmit}
-                        style={{ marginTop: '10px' }}
-                        disabled={isCreating}
-                    >
-                        Submit Review
-                        <ArrowRightOutlined />
-                    </Button>
+                    {
+                        userReview ?
+                            <Button
+                                type="primary"
+                                onClick={handleFeedbackSubmit}
+                                style={{ marginTop: '10px', textTransform: 'uppercase' }}
+                                disabled={isCreating}
+                                size='large'
+                            >
+                                Submited < CheckOutlined />
+                            </Button> :
+                            <Button
+                                type="primary"
+                                onClick={handleFeedbackSubmit}
+                                style={{ marginTop: '10px' }}
+                                disabled={isCreating}
+                                size='large'
+                            >
+                                Submit Review <ArrowRightOutlined />
+                            </Button>
+                    }
                 </div>
             </div>
 

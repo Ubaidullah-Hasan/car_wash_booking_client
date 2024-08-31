@@ -53,7 +53,6 @@ const featuredServices = [
 
 const FeaturedServices = () => {
     const { data: servicesData } = useGetAllServicesQuery(undefined);
-    console.log({servicesData});
 
     const responsive = {
         superLargeDesktop: {

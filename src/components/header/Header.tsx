@@ -3,11 +3,15 @@ import { Header } from "antd/es/layout/layout";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import './header.css';
 import { useEffect, useState } from "react";
-import { CaretRightOutlined, DownloadOutlined, ForwardOutlined } from "@ant-design/icons";
+import { CaretRightOutlined} from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
+import { currentUser, logout } from "../../Redux/features/auth/authSlice";
 
 const MainHeader = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const user = useAppSelector(currentUser);
+    const dispatch = useAppDispatch();
 
 
     const getDefaultKey = () => {
@@ -90,10 +94,17 @@ const MainHeader = () => {
             {/* right side */}
             <div>
                 <Space size={50}>
-                    <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} className="custom-radio-group">
-                        <Radio.Button value="start" onClick={() => handleAuth("/signin")} >Sign In</Radio.Button>
-                        <Radio.Button value="end" onClick={() => handleAuth("/signup")}>Sign Up</Radio.Button>
-                    </Radio.Group>
+                    {
+                        !user ? <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} className="custom-radio-group">
+                            <Radio.Button value="start" onClick={() => handleAuth("/signin")} >Sign In</Radio.Button>
+                            <Radio.Button value="end" onClick={() => handleAuth("/signup")}>Sign Up</Radio.Button>
+                        </Radio.Group>
+                            :
+                            <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} className="custom-radio-group">
+                                <Radio.Button value="end" onClick={() => dispatch(logout())} >Log Out</Radio.Button>
+                            </Radio.Group>
+                    }
+
                     <Button className="custom-btn" type="primary" iconPosition="end" icon={<CaretRightOutlined />} href="/services" >
                         Get Started
                     </Button>

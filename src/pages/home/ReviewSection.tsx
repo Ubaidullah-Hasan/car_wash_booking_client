@@ -6,6 +6,8 @@ import Meta from 'antd/es/card/Meta';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../Redux/hooks';
 import { currentUser } from '../../Redux/features/auth/authSlice';
+import { useCreateReviewMutation } from '../../Redux/features/reviewManagement/ReviewManagement.api';
+import { useGetUserByEmailQuery } from '../../Redux/features/user/userManagement.api';
 
 const reviews = [
     {
@@ -50,19 +52,21 @@ const ReviewSection = () => {
     const navigate = useNavigate();
     const [rating, setRating] = useState(0);
     const [feedback, setFeedback] = useState('');
-    const overallRating = reviews.reduce((acc, currentValue) => currentValue.rating + acc / reviews.length, 0);
-    console.log(overallRating)
     const user = useAppSelector(currentUser);
-    console.log(user);
+    const {data: userData} = useGetUserByEmailQuery(user?.email, {skip: !(user?.email)});
+
+    const [createReview,{isLoading: isCreating}] = useCreateReviewMutation();
+    console.log({isCreating, user});
+
+    const overallRating = reviews.reduce((acc, currentValue) => currentValue.rating + acc / reviews.length, 0);
 
     const handleFeedbackSubmit = () => {
         const reviewSubmitData = {
-            userId: "",
+            userId: userData?.data?._id,
             feedback: feedback,
             rating: rating,
         }
-        // Submit logic here
-        console.log(reviewSubmitData);
+        createReview(reviewSubmitData); 
     };
 
     const handleLoginRedirect = () => {
@@ -151,6 +155,7 @@ const ReviewSection = () => {
                         type="primary"
                         onClick={handleFeedbackSubmit}
                         style={{ marginTop: '10px' }}
+                        disabled={isCreating}
                     >
                         Submit Review
                         <ArrowRightOutlined />

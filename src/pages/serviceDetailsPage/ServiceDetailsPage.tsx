@@ -5,6 +5,8 @@ import { useGetSingleServiceQuery } from '../../Redux/features/serviceManagement
 import { useGetSlotByServiceIdQuery } from '../../Redux/features/slotManagement/slotManagement';
 import SlotButton from '../../components/SlotButton';
 import { useState } from 'react';
+import { useCreateBookingMutation } from '../../Redux/features/bookingManagement/bookingManagement.api';
+import toast, { Toaster } from 'react-hot-toast';
 
 const { Title, Text } = Typography;
 
@@ -12,20 +14,45 @@ const ServiceDetailsPage = () => {
     const { serviceId } = useParams();
     const { data: service } = useGetSingleServiceQuery(serviceId);
     const { data: slots } = useGetSlotByServiceIdQuery(serviceId, { skip: !(service?.data) });
+    const [createBooking, { isLoading }] = useCreateBookingMutation();
 
     const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
 
     const handleSelect = (id: string) => {
         if (selectedSlotId === id) {
-            setSelectedSlotId(null); 
+            setSelectedSlotId(null);
         } else if (slots.data.find(slot => slot._id === id)?.isBooked === 'available') {
-            setSelectedSlotId(id); 
+            setSelectedSlotId(id);
         }
     };
 
-    const handleBooked = () => {
+    const saveToLocalStorage = (key, newItem) => {
+        const existingItems = JSON.parse(localStorage.getItem(key)) || [];
+        const itemExists = existingItems.some(item => item.slotId === newItem.slotId);
+
+        if (!itemExists) {
+            const updatedItems = [...existingItems, newItem];
+            localStorage.setItem(key, JSON.stringify(updatedItems));
+            toast.success('Save this booking!');
+        } else {
+            console.log('Item already exists in localStorage:', newItem);
+        }
+    };
+
+    
+
+    const handleBooke = async () => {
         if (selectedSlotId) {
-            console.log('Booking slot:', selectedSlotId);
+            const bookingData = {
+                serviceId: serviceId,
+                slotId: selectedSlotId,
+                // vehicleType: "car",
+                // vehicleBrand: "Toyota",
+                // vehicleModel: "Camry",
+                // manufacturingYear: 2020,
+                // registrationPlate: "ABC124"
+            }
+            saveToLocalStorage('bookings', bookingData);
         }
     }
 
@@ -69,12 +96,13 @@ const ServiceDetailsPage = () => {
                         </div>
                         <Button
                             type="primary"
-                            disabled={!selectedSlotId}
+                            disabled={isLoading || !selectedSlotId}
                             style={{ marginTop: '20px', width: '100%' }}
-                            onClick={handleBooked}
+                            onClick={handleBooke}
                         >
                             Book This Service
                         </Button>
+                        < Toaster />
                     </Card>
                 </Col>
             </Row>

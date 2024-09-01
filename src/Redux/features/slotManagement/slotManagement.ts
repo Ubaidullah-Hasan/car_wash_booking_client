@@ -8,7 +8,8 @@ const serviceManagementApi = baseApi.injectEndpoints({
                     url: `/slots/${serviceId}`,
                     method: "GET",
                 }
-            }
+            },
+            providesTags: ['slot']
         })
     }),
 });

@@ -3,9 +3,10 @@ import { Header } from "antd/es/layout/layout";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import './header.css';
 import { useEffect, useState } from "react";
-import { CaretRightOutlined} from "@ant-design/icons";
+import { CaretRightOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import { currentUser, logout } from "../../Redux/features/auth/authSlice";
+import ProfileMenu from "./ProfileMenu";
 
 const MainHeader = () => {
     const navigate = useNavigate();
@@ -115,6 +116,7 @@ const MainHeader = () => {
                     </Button>
                 </Space>
             </div>
+            {/* < ProfileMenu /> */}
         </Header>
     );
 };

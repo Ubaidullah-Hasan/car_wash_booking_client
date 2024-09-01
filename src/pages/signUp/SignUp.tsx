@@ -1,28 +1,36 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Form, Input, Button, message, Row, Col } from 'antd';
 import { UserOutlined, MailOutlined, LockOutlined, PhoneOutlined, HomeOutlined } from '@ant-design/icons';
 import profileImg from "../../assets/icon/profile.png"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRegisterUserMutation } from '../../Redux/features/auth/auth.api';
 
-type FieldType = {
-    email?: string;
-    password?: string;
-    remember?: string;
-};
+
 
 const SignUp = () => {
-
+    const navigate = useNavigate();
     const [form] = Form.useForm();
+    const [getRegistration,{isLoading: creating}] = useRegisterUserMutation();
 
     const onFinish = async (values: any) => {
         try {
-            console.log('Form Values:', values);
-            // Here, you'd typically make an API call to register the user
-            // For example:
-            // await registerUser(values);
+            const registerInfo = {
+                name: values.name,
+                email: values.email,
+                password: values.password,
+                address: values.address,
+                phone: values.phone,
+            }
+            console.log(registerInfo);
+            const res = await getRegistration(registerInfo);
+            console.log(res?.data?.success);
+            if(res.data.success) {
+                navigate("/signIn");
+            }
             message.success('Registration successful!');
-            form.resetFields();
-        } catch (error) {
+            // form.resetFields();
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (err) {
             message.error('Registration failed. Please try again.');
         }
     };
@@ -97,7 +105,7 @@ const SignUp = () => {
                             label="Phone Number"
                             rules={[
                                 { required: true, message: 'Please input your phone number!' },
-                                { pattern: /^[0-9]{10}$/, message: 'Please input a valid phone number!' }
+                                { pattern: /^[0-9]{11}$/, message: 'Please input a valid phone number!' }
                             ]}
                         >
                             <Input prefix={<PhoneOutlined />} placeholder="Enter your phone number" />
@@ -112,7 +120,7 @@ const SignUp = () => {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" block>
+                            <Button type="primary" htmlType="submit" block disabled={creating}>
                                 Register
                             </Button>
                         </Form.Item>

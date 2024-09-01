@@ -3,13 +3,13 @@ import { Input, Card, Row, Col, Select } from 'antd';
 import './style.css'
 import SectionTitle from '../../components/SectionTitle';
 import { useGetAllServicesQuery } from '../../Redux/features/serviceManagement/serviceManagement.api';
-import Title from 'antd/es/skeleton/Title';
+import { useNavigate } from 'react-router-dom';
 
 const { Search } = Input;
 const { Option } = Select;
 
 const ServicesPage = () => {
-    // const [services, setServices] = useState(servicesData);
+    const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
     const [sortPriceOrder, setSortPriceOrder] = useState<string>('ascend');
     const [sortDurationOrder, setSortDurationOrder] = useState<string>('ascend');
@@ -81,11 +81,12 @@ const ServicesPage = () => {
                                 hoverable
                                 cover={
                                     <img
-                                        alt={service.name}
-                                        src={service.image || "https://cdni.autocarindia.com/utils/ImageResizer.ashx?n=https://cms.haymarketindia.net/model/uploads/modelimages/Hyundai-Grand-i10-Nios-200120231541.jpg"}
+                                        alt={service?.name}
+                                        src={service?.image || "https://cdni.autocarindia.com/utils/ImageResizer.ashx?n=https://cms.haymarketindia.net/model/uploads/modelimages/Hyundai-Grand-i10-Nios-200120231541.jpg"}
                                         style={{ height: '200px', objectFit: 'cover', borderBottom: "1px solid #dedcdc80" }}
                                     />
                                 }
+                                onClick={() => navigate(service?._id)}
                             >
                                 <h3>{service.name}</h3>
                                 <p style={{ height: "50px" }}>

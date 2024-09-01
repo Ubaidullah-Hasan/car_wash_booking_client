@@ -11,10 +11,18 @@ const serviceManagementApi = baseApi.injectEndpoints({
                 };
             },
         }),
+        getSingleService: builder.query({
+            query: (serviceId) => {
+                return{
+                    url: `/services/${serviceId}`,
+                    method: "GET",
+                }
+            }
+        })
     }),
 });
 
-export const {useGetAllServicesQuery} = serviceManagementApi;
+export const {useGetAllServicesQuery, useGetSingleServiceQuery} = serviceManagementApi;
 
 
 

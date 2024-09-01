@@ -6,6 +6,7 @@ import SignIn from "../pages/signIn/SignIn";
 import SignUp from "../pages/signUp/SignUp";
 import Review from "../pages/reviews/Review";
 import ServicesPage from "../pages/services/ServicesPage";
+import ServiceDetailsPage from "../pages/serviceDetailsPage/ServiceDetailsPage";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
             {
                 path: "services",
                 element: <ServicesPage />,
+            },
+            {
+                path: "services/:serviceId",
+                element: <ServiceDetailsPage />,
             },
             {
                 path: "booking",

@@ -52,7 +52,7 @@ const featuredServices = [
 
 
 const FeaturedServices = () => {
-    const { data: servicesData } = useGetAllServicesQuery(undefined);
+    const { data: servicesData, isSuccess } = useGetAllServicesQuery({limit: 6});
 
     const responsive = {
         superLargeDesktop: {
@@ -89,9 +89,9 @@ const FeaturedServices = () => {
                 autoPlay={true}
                 itemClass='carousel-gap'
             >
-                {
-                    featuredServices?.map((service, i) => (
-                        <FetauredCard key={i} data={service} />
+                { isSuccess &&
+                    servicesData?.data.map((service) => (
+                        <FetauredCard key={service?._id} data={service} />
                     ))
                 }
             </Carousel >

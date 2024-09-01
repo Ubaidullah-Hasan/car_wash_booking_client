@@ -1,43 +1,35 @@
-import React, { useState } from 'react';
-import { Input, Card, Row, Col, Select, Typography, Button } from 'antd';
+import { useState } from 'react';
+import { Input, Card, Row, Col, Select } from 'antd';
 import './style.css'
 import SectionTitle from '../../components/SectionTitle';
+import { useGetAllServicesQuery } from '../../Redux/features/serviceManagement/serviceManagement.api';
+import Title from 'antd/es/skeleton/Title';
 
 const { Search } = Input;
 const { Option } = Select;
-const { Title } = Typography;
-
-// Mock data for services
-const servicesData = [
-    { id: 1, name: 'Basic Wash', description: 'Includes exterior wash and dry.', price: 10, duration: 30 },
-    { id: 2, name: 'Deluxe Wash', description: 'Exterior wash, dry, and wax.', price: 20, duration: 45 },
-    { id: 3, name: 'Premium Wash', description: 'Complete interior and exterior wash.', price: 30, duration: 60 },
-    { id: 4, name: 'Ultimate Wash', description: 'Full service wash including tire shine.', price: 40, duration: 90 },
-    // Add more services as needed
-];
 
 const ServicesPage = () => {
-    const [services, setServices] = useState(servicesData);
+    // const [services, setServices] = useState(servicesData);
     const [searchTerm, setSearchTerm] = useState('');
-    const [sortPriceOrder, setSortPriceOrder] = useState('ascend');
-    const [sortDurationOrder, setSortDurationOrder] = useState('ascend');
+    const [sortPriceOrder, setSortPriceOrder] = useState<string>('ascend');
+    const [sortDurationOrder, setSortDurationOrder] = useState<string>('ascend');
+    const { data: services } = useGetAllServicesQuery({ searchTerm, sortDurationOrder, sortPriceOrder });
 
     // Handle search
     const onSearch = (value: string) => {
         setSearchTerm(value);
-        console.log(value);
     };
 
     // Handle sorting by price
     const handlePriceSortChange = (order: string) => {
+        setSortDurationOrder("");
         setSortPriceOrder(order);
-        console.log(order);
     };
 
     // Handle sorting by duration
     const handleDurationSortChange = (order: string) => {
+        setSortPriceOrder("");
         setSortDurationOrder(order);
-        console.log(order);
     };
 
     return (
@@ -51,7 +43,7 @@ const ServicesPage = () => {
                     </Col>
                     <Col xs={24} md={12}>
                         <div>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: "space-between"}}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
                                 <div className='service-filter-form'>
                                     <label htmlFor="price">Price</label>
                                     <Select
@@ -82,12 +74,29 @@ const ServicesPage = () => {
                 </Row>
 
                 <Row gutter={[16, 16]}>
-                    {services.map(service => (
-                        <Col xs={24} sm={12} md={8} lg={8} key={service.id}>
-                            <Card title={service.name} bordered={true} hoverable>
-                                <p>{service.description}</p>
-                                <p><strong>Price:</strong> ${service.price}</p>
-                                <p><strong>Duration:</strong> {service.duration} mins</p>
+                    {services?.data?.map(service => (
+                        <Col xs={24} sm={12} md={8} lg={8} key={service._id}>
+                            <Card
+                                bordered={true}
+                                hoverable
+                                cover={
+                                    <img
+                                        alt={service.name}
+                                        src={service.image || "https://cdni.autocarindia.com/utils/ImageResizer.ashx?n=https://cms.haymarketindia.net/model/uploads/modelimages/Hyundai-Grand-i10-Nios-200120231541.jpg"}
+                                        style={{ height: '200px', objectFit: 'cover', borderBottom: "1px solid #dedcdc80" }}
+                                    />
+                                }
+                            >
+                                <h3>{service.name}</h3>
+                                <p style={{ height: "50px" }}>
+                                    {service.description.length > 100
+                                        ? `${service.description.substring(0, 100)}...`
+                                        : service.description}
+                                </p>
+                                <div style={{display:"flex", alignItems: "center", justifyContent: "space-between"}}>
+                                    <p><strong>Price:</strong> ৳{service.price}</p>
+                                    <p><strong>Duration:</strong> {service.duration} mins</p>
+                                </div>
                             </Card>
                         </Col>
                     ))}

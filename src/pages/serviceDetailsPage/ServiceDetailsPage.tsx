@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Card, Col, Row, Button, Typography } from 'antd';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './style.css';
 import { useGetSingleServiceQuery } from '../../Redux/features/serviceManagement/serviceManagement.api';
 import { useGetSlotByServiceIdQuery } from '../../Redux/features/slotManagement/slotManagement';
@@ -12,47 +13,56 @@ const { Title, Text } = Typography;
 
 const ServiceDetailsPage = () => {
     const { serviceId } = useParams();
+    const navigate = useNavigate();
     const { data: service } = useGetSingleServiceQuery(serviceId);
     const { data: slots } = useGetSlotByServiceIdQuery(serviceId, { skip: !(service?.data) });
     const [createBooking, { isLoading }] = useCreateBookingMutation();
 
-    const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
+    const [selectedSlot, setSelectedSlot] = useState<Record<string, any>>(
+        JSON.parse(localStorage.getItem("bookings")) || { serviceId: null, slotId: null }
+    );
 
     const handleSelect = (id: string) => {
-        if (selectedSlotId === id) {
-            setSelectedSlotId(null);
-        } else if (slots.data.find(slot => slot._id === id)?.isBooked === 'available') {
-            setSelectedSlotId(id);
+        if (selectedSlot?.slotId === id) {
+            localStorage.removeItem('bookings');
+            setSelectedSlot({
+                serviceId: null,
+                slotId: null,
+            });
+        } else {
+            const selectedSlotData = slots?.data?.find(slot => slot._id === id);
+            if (selectedSlotData?.isBooked === 'available') {
+                const bookingData = {
+                    serviceId: selectedSlotData.service?._id,
+                    slotId: id,
+                };
+                setSelectedSlot(bookingData);
+            }
         }
     };
 
     const saveToLocalStorage = (key, newItem) => {
-        const existingItems = JSON.parse(localStorage.getItem(key)) || [];
-        const itemExists = existingItems.some(item => item.slotId === newItem.slotId);
-
+        const existingItems = JSON.parse(localStorage.getItem(key)) || {};
+        const itemExists = existingItems?.slotId === newItem?.slotId;
         if (!itemExists) {
-            const updatedItems = [...existingItems, newItem];
+            const updatedItems = newItem;
             localStorage.setItem(key, JSON.stringify(updatedItems));
             toast.success('Save this booking!');
         } else {
-            console.log('Item already exists in localStorage:', newItem);
+            toast.error('Already save this booking!');
         }
     };
 
-    
+
 
     const handleBooke = async () => {
-        if (selectedSlotId) {
+        if (selectedSlot?.slotId) {
             const bookingData = {
                 serviceId: serviceId,
-                slotId: selectedSlotId,
-                // vehicleType: "car",
-                // vehicleBrand: "Toyota",
-                // vehicleModel: "Camry",
-                // manufacturingYear: 2020,
-                // registrationPlate: "ABC124"
+                slotId: selectedSlot?.slotId,
             }
             saveToLocalStorage('bookings', bookingData);
+            navigate("/booking")
         }
     }
 
@@ -89,14 +99,14 @@ const ServiceDetailsPage = () => {
                                 <SlotButton
                                     key={slot._id}
                                     slot={slot}
-                                    selectedSlotId={selectedSlotId}
+                                    selectedSlotId={selectedSlot?.slotId}
                                     onSelect={handleSelect}
                                 />
                             ))}
                         </div>
                         <Button
                             type="primary"
-                            disabled={isLoading || !selectedSlotId}
+                            disabled={isLoading || !selectedSlot?.slotId}
                             style={{ marginTop: '20px', width: '100%' }}
                             onClick={handleBooke}
                         >

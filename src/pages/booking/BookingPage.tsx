@@ -3,32 +3,30 @@ import { Row, Col, Card, Form, Input, Button, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 import { useCreateBookingMutation } from '../../Redux/features/bookingManagement/bookingManagement.api';
-import { useGetSlotByServiceIdQuery, useGetSlotBySlotIdQuery } from '../../Redux/features/slotManagement/slotManagement';
+import { useGetSlotBySlotIdQuery } from '../../Redux/features/slotManagement/slotManagement';
+import { ClockCircleOutlined, DollarOutlined } from '@ant-design/icons';
+import EmptyCard from '../../components/EmptyCard';
 
 const { Title } = Typography;
 
 const BookingPage = () => {
     const navigate = useNavigate();
-    const [bookingData, setBookingData] = useState(null);
-    // const [bookingData, setBookingData] = useState({
-    //     serviceId: null,
-    //     slotId: null,
-    // });
-    const [createBooking, { isLoading }] = useCreateBookingMutation();
-    const { data: slot } = useGetSlotBySlotIdQuery(bookingData?.slotId, { skip: !bookingData?.slotId });
-    console.log(slot?.data);
-
-
+    // const [bookingData, setBookingData] = useState(null);
+    const [bookingData, setBookingData] = useState({
+        serviceId: null,
+        slotId: null,
+    });
+    const { data: slot, isLoading } = useGetSlotBySlotIdQuery(bookingData?.slotId, { skip: !bookingData?.slotId });
+    const slotData = slot?.data;
+    console.log(slotData);
 
 
     useEffect(() => {
-        // Retrieve booking data from localStorage
         const storedBookingData = JSON.parse(localStorage.getItem('bookings'));
         if (storedBookingData) {
             setBookingData(storedBookingData);
         }
     }, []);
-    console.log(bookingData);
 
     const handlePayNow = () => {
         if (bookingData) {
@@ -39,23 +37,39 @@ const BookingPage = () => {
         }
     };
 
-    if (!bookingData) {
-        return <p>No booking data found!</p>;
-    }
 
     return (
         <div className="booking-page section-container margin-y-medium">
             <Row gutter={[16, 16]}>
                 {/* Left Side - Selected Service & Slot Information */}
-                <Col xs={24} md={12}>
-                    <Card title="Selected Service">
-                        <Title level={4}>{bookingData.serviceId.name}</Title>
-                        <p><strong>Description:</strong> {bookingData.serviceId.description}</p>
-                        <p><strong>Price:</strong> ${bookingData.serviceId.price}</p>
-                        <p><strong>Duration:</strong> {bookingData.serviceId.duration} mins</p>
-                        <p><strong>Selected Time Slot:</strong> {bookingData.slotId.startTime} - {bookingData.slotId.endTime}</p>
-                    </Card>
-                </Col>
+                {!slotData ?
+                    <EmptyCard isLoading={isLoading} imageWidth='100px' />
+                    :
+                    <Col xs={24} md={12}>
+                        <Card
+                            cover={<img alt="Service Cover" src={slotData?.service?.image || 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?cs=srgb&dl=pexels-mikebirdy-170811.jpg&fm=jpg'} />}
+                            actions={[
+                                <Button type="primary" className='custom-card-price-btn' icon={<DollarOutlined />}>
+                                    {slotData?.service.price} ৳
+                                </Button>,
+                                <Button className='custom-card-btn' type="default" icon={<ClockCircleOutlined />}>
+                                    {slotData?.service.duration} mins
+                                </Button>,
+                                // <Button type="default" icon={<CalendarOutlined />}>
+                                //     {moment(slotData?.date).format("YYYY-MM-DD") || 'Selected Date'}
+                                // </Button>,
+                                <Button className='custom-card-btn' type="default" icon={<ClockCircleOutlined />}>
+                                    {slotData?.startTime} - {slotData?.endTime}
+                                </Button>,
+                            ]}
+                        >
+                            <Title level={4}>{slotData?.service?.name}</Title>
+                            <p>{slotData?.service.description}</p>
+                        </Card>
+                    </Col>
+
+                }
+
 
                 {/* Right Side - User Information Form */}
                 <Col xs={24} md={12}>
@@ -68,9 +82,14 @@ const BookingPage = () => {
                                 <Input type="email" placeholder="Enter your email" />
                             </Form.Item>
                             <Form.Item label="Selected Time Slot">
-                                <Input value={`${bookingData.slotId.startTime} - ${bookingData.slotId.endTime}`} disabled />
+                                <Input value={`${slotData?.startTime} - ${slotData?.endTime}`} disabled />
                             </Form.Item>
-                            <Button type="primary" block onClick={handlePayNow}>
+                            <Button
+                                disabled={!slotData}
+                                type="primary"
+                                block
+                                onClick={handlePayNow}
+                            >
                                 Pay Now
                             </Button>
                         </Form>

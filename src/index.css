@@ -7,6 +7,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
+:root{
+    --primary-color: #37B45A;
+    --secondary-color: rgb(2, 156, 173);
+}
+
 .margin-x {
     margin: 0, 20px !important;
 }
@@ -41,7 +46,7 @@ h2 {
 }
 
 .custom-btn:hover {
-    background-color: rgb(2, 156, 173) !important;
+    background-color: var(--secondary-color) !important;
 }
 
 .section-container {
@@ -61,10 +66,10 @@ h2 {
 }
 
 .text-green{
-    color: #37B45A ;
+    color: var(--primary-color) ;
 }
 .bg-green{
-    background-color: #37B45A ;
+    background-color: var(--primary-color) ;
 }
 
 .form-bg {

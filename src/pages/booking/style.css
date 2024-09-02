@@ -3,3 +3,20 @@
     min-height: 100vh;
     background-color: #f5f5f5;
 }
+.booking-page .empty-card {
+    width: 50%;
+}
+
+
+.booking-page .custom-card-price-btn {
+    cursor: default
+}
+.booking-page .custom-card-price-btn:hover {
+    background-color: var(--primary-color) !important;
+}
+
+.booking-page .custom-card-btn {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    cursor: default;
+}

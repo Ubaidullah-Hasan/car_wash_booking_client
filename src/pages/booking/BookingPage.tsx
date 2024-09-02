@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Row, Col, Card, Form, Input, Button, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
-import { useCreateBookingMutation } from '../../Redux/features/bookingManagement/bookingManagement.api';
 import { useGetSlotBySlotIdQuery } from '../../Redux/features/slotManagement/slotManagement';
 import { ClockCircleOutlined, DollarOutlined } from '@ant-design/icons';
 import EmptyCard from '../../components/EmptyCard';
@@ -11,7 +10,6 @@ const { Title } = Typography;
 
 const BookingPage = () => {
     const navigate = useNavigate();
-    // const [bookingData, setBookingData] = useState(null);
     const [bookingData, setBookingData] = useState({
         serviceId: null,
         slotId: null,

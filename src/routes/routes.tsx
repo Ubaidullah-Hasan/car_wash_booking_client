@@ -7,11 +7,13 @@ import SignUp from "../pages/signUp/SignUp";
 import Review from "../pages/reviews/Review";
 import ServicesPage from "../pages/services/ServicesPage";
 import ServiceDetailsPage from "../pages/serviceDetailsPage/ServiceDetailsPage";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
+        errorElement: <NotFoundPage />,
         children: [
             {
                 path: "/",

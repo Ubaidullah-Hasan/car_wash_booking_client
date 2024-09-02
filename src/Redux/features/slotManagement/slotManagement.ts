@@ -10,11 +10,20 @@ const serviceManagementApi = baseApi.injectEndpoints({
                 }
             },
             providesTags: ['slot']
+        }),
+        getSlotBySlotId: builder.query({
+            query: (slotId) => {
+                return {
+                    url: `/slots/selectedSlot/${slotId}`,
+                    method: "GET",
+                }
+            },
+            providesTags: ['slot']
         })
     }),
 });
 
-export const { useGetSlotByServiceIdQuery } = serviceManagementApi;
+export const { useGetSlotByServiceIdQuery, useGetSlotBySlotIdQuery } = serviceManagementApi;
 
 
 

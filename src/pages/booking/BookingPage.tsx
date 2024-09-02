@@ -2,18 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Form, Input, Button, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
+import { useCreateBookingMutation } from '../../Redux/features/bookingManagement/bookingManagement.api';
+import { useGetSlotByServiceIdQuery, useGetSlotBySlotIdQuery } from '../../Redux/features/slotManagement/slotManagement';
 
 const { Title } = Typography;
 
 const BookingPage = () => {
-    const [bookingData, setBookingData] = useState(null);
     const navigate = useNavigate();
+    const [bookingData, setBookingData] = useState(null);
+    // const [bookingData, setBookingData] = useState({
+    //     serviceId: null,
+    //     slotId: null,
+    // });
+    const [createBooking, { isLoading }] = useCreateBookingMutation();
+    const { data: slot } = useGetSlotBySlotIdQuery(bookingData?.slotId, { skip: !bookingData?.slotId });
+    console.log(slot?.data);
+
+
+
 
     useEffect(() => {
         // Retrieve booking data from localStorage
         const storedBookingData = JSON.parse(localStorage.getItem('bookings'));
-        if (storedBookingData && storedBookingData.length > 0) {
-            setBookingData(storedBookingData[0]);
+        if (storedBookingData) {
+            setBookingData(storedBookingData);
         }
     }, []);
     console.log(bookingData);

@@ -6,7 +6,6 @@ import { useGetSingleServiceQuery } from '../../Redux/features/serviceManagement
 import { useGetSlotByServiceIdQuery } from '../../Redux/features/slotManagement/slotManagement';
 import SlotButton from '../../components/SlotButton';
 import { useState } from 'react';
-import { useCreateBookingMutation } from '../../Redux/features/bookingManagement/bookingManagement.api';
 import toast, { Toaster } from 'react-hot-toast';
 
 const { Title, Text } = Typography;
@@ -16,7 +15,6 @@ const ServiceDetailsPage = () => {
     const navigate = useNavigate();
     const { data: service } = useGetSingleServiceQuery(serviceId);
     const { data: slots } = useGetSlotByServiceIdQuery(serviceId, { skip: !(service?.data) });
-    const [createBooking, { isLoading }] = useCreateBookingMutation();
 
     const [selectedSlot, setSelectedSlot] = useState<Record<string, any>>(
         JSON.parse(localStorage.getItem("bookings")) || { serviceId: null, slotId: null }
@@ -106,7 +104,7 @@ const ServiceDetailsPage = () => {
                         </div>
                         <Button
                             type="primary"
-                            disabled={isLoading || !selectedSlot?.slotId}
+                            disabled={!selectedSlot?.slotId}
                             style={{ marginTop: '20px', width: '100%' }}
                             onClick={handleBooke}
                         >

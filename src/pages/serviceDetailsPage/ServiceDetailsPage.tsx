@@ -65,7 +65,7 @@ const ServiceDetailsPage = () => {
     }
 
     return (
-        <div className="service-details-page section-container margin-y-medium">
+        <div className="service-details-page section-container">
             <Row gutter={[16, 16]}>
                 <Col xs={24} md={12}>
                     <Card

@@ -34,6 +34,7 @@ h2 {
     line-height: 21px;
     font-family: 'Poppins', sans-serif;
     color: rgb(255, 255, 255);
+    cursor: pointer;
 }
 
 .white-color {
@@ -43,15 +44,17 @@ h2 {
 .custom-btn {
     text-transform: uppercase;
     font-weight: 500;
+    background-color: var(--secondary-color);
 }
 
 .custom-btn:hover {
-    background-color: var(--secondary-color) !important;
+    background-color: var(--primary-color);
 }
 
 .section-container {
     padding: 0 200px;
     position: relative;
+    min-height: 80vh;
 }
 
 .margin-y-medium{

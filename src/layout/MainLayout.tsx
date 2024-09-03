@@ -17,12 +17,9 @@ const MainLayout = () => {
         <ConfigProvider
             theme={{
                 token: {
-                    // Seed Token
                     colorPrimary: '#37B45A',
-                    // borderRadius: 2,
-
-                    // Alias Token
-                    // colorBgContainer: '#f6ffed',
+                    colorTextDisabled: '#dededede',
+                    colorBgContainerDisabled: "#37b45aa0"
                 },
             }}
         >
@@ -31,8 +28,8 @@ const MainLayout = () => {
                 <Content>
                     <div
                         style={{
-                            background: colorBgContainer,
-                            minHeight: "100vh",
+                            background: "#f5f5f5",
+                            minHeight: "80vh",
                             borderRadius: borderRadiusLG,
                         }}
                     >

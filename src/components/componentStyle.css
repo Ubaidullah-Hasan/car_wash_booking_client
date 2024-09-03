@@ -17,6 +17,7 @@
     border-radius: 5px;
     color: white;
     background-color: #37B45A;
+    cursor: pointer;
     /* transition: 1s; */
 }
 .card-btn:hover{

@@ -1,5 +1,6 @@
 .custom-header{
     border-bottom: 1px solid rgba(209, 209, 209, 0.308) !important;
+    position: relative;
 }
 .custom-menu {
     margin-right: 40px;

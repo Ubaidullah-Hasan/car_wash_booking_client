@@ -3,6 +3,7 @@ import { Avatar, Card } from 'antd';
 import Meta from 'antd/es/card/Meta';
 import { IoTimeOutline } from 'react-icons/io5';
 import serviceIcon from "../../assets/icon/serviceIcon.gif"
+import { useNavigate } from 'react-router-dom';
 
 type TProps = {
     name: string
@@ -10,9 +11,11 @@ type TProps = {
     image: string
     price: number
     duration: string
+    _id: string
 }
 
 const FetauredCard = ({ data }: { data: TProps }) => {
+    const navigate = useNavigate();
 
     return (
         <Card
@@ -24,8 +27,8 @@ const FetauredCard = ({ data }: { data: TProps }) => {
             }
             actions={[
                 <span className='text-green' style={{ fontWeight: "700" }}>{data?.price} ৳</span>,
-                <span className='text-green' style={{ display: "flex", justifyContent: "center", alignItems: "center",}}> <IoTimeOutline />  {data?.duration} Mins</span>,
-                <button className='card-btn'>Book Now <DoubleRightOutlined /></button>
+                <span className='text-green' style={{ display: "flex", justifyContent: "center", alignItems: "center", }}> <IoTimeOutline />  {data?.duration} Mins</span>,
+                <button className='card-btn' onClick={() => navigate(`/services/${data?._id}`)}>Book Now <DoubleRightOutlined /></button>
             ]}
         >
             <Meta

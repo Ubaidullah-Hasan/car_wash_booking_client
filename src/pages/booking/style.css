@@ -1,7 +1,8 @@
 .booking-page {
     overflow: scroll;
-    min-height: 100vh;
+    min-height: 60vh;
     background-color: #f5f5f5;
+    margin-top: 80px;
 }
 .booking-page .empty-card {
     width: 50%;

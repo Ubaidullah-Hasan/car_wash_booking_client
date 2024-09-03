@@ -5,6 +5,8 @@ import './style.css';
 import { useGetSlotBySlotIdQuery } from '../../Redux/features/slotManagement/slotManagement';
 import { ClockCircleOutlined, DollarOutlined } from '@ant-design/icons';
 import EmptyCard from '../../components/EmptyCard';
+import PayButton from '../../components/PayButton';
+import axios from 'axios';
 
 const { Title } = Typography;
 
@@ -16,7 +18,55 @@ const BookingPage = () => {
     });
     const { data: slot, isLoading } = useGetSlotBySlotIdQuery(bookingData?.slotId, { skip: !bookingData?.slotId });
     const slotData = slot?.data;
-    console.log(slotData);
+
+
+    // payment
+    const [loading, setLoading] = useState(false);
+
+    const onFinish = async (values) => {
+        setLoading(true);
+
+        // Prepare payment data
+        const paymentData = {
+            store_id: 'aamarpaytest',
+            signature_key: "dbb74894e82415a2f7ff0ec3a97e4183",
+            amount: '500',
+            tran_id: Math.floor(Math.random() * 10000),
+            currency: "BDT",
+            desc: "Description",
+            cus_add1: "Dhaka",
+            cus_add2: "Dhaka",
+            cus_city: "Dhaka",
+            cus_state: "Dhaka",
+            cus_postcode: "0",
+            cus_country: "Bangladesh",
+            type: "json",
+            success_url: 'http://localhost:5173/payment/success',
+            fail_url: 'http://localhost:5173/payment/fail',
+            cancel_url: 'http://localhost:5173/payment/cancel',
+            cus_name: values.userName,
+            cus_email: values.email,
+            cus_phone: values.phone,
+        };
+
+        try {
+            const response = await axios.post('https://sandbox.aamarpay.com/index.php', paymentData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            const redirect_url = response.data.payment_url;
+            if (response.data && redirect_url) {
+                window.location.href = redirect_url
+            }
+
+        } catch (error) {
+            console.error('Payment initiation failed', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
 
     useEffect(() => {
@@ -26,18 +76,9 @@ const BookingPage = () => {
         }
     }, []);
 
-    const handlePayNow = () => {
-        if (bookingData) {
-            // Redirect to AAMARPAY for payment
-            navigate('/payment'); // Adjust according to your routing
-            // Update the slot status to "booked" after payment
-            // Logic to mark the slot as "booked" should be added here
-        }
-    };
-
 
     return (
-        <div className="booking-page section-container margin-y-medium">
+        <div className="booking-page section-container">
             <Row gutter={[16, 16]}>
                 {/* Left Side - Selected Service & Slot Information */}
                 {!slotData ?
@@ -68,28 +109,24 @@ const BookingPage = () => {
 
                 }
 
-
                 {/* Right Side - User Information Form */}
                 <Col xs={24} md={12}>
                     <Card title="User Information">
-                        <Form layout="vertical">
+                        <Form layout="vertical" onFinish={onFinish}>
                             <Form.Item label="User Name" name="userName" rules={[{ required: true, message: 'Please input your name!' }]}>
                                 <Input placeholder="Enter your name" />
                             </Form.Item>
                             <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
                                 <Input type="email" placeholder="Enter your email" />
                             </Form.Item>
+                            <Form.Item label="Phone" name="phone" rules={[{ required: true, message: 'Please input your phone!' }]}>
+                                <Input type="text" placeholder="Enter your phone" />
+                            </Form.Item>
                             <Form.Item label="Selected Time Slot">
                                 <Input value={`${slotData?.startTime} - ${slotData?.endTime}`} disabled />
                             </Form.Item>
-                            <Button
-                                disabled={!slotData}
-                                type="primary"
-                                block
-                                onClick={handlePayNow}
-                            >
-                                Pay Now
-                            </Button>
+                            {/* pay btn */}
+                            <PayButton slotData={slotData} loading={loading} />
                         </Form>
                     </Card>
                 </Col>

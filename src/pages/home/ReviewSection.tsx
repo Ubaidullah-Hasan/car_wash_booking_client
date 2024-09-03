@@ -15,15 +15,17 @@ const ReviewSection = () => {
     const [feedback, setFeedback] = useState('');
     const user = useAppSelector(currentUser);
     const { data: userData } = useGetUserByEmailQuery(user?.email, { skip: !(user?.email) });
+    console.log(user);
 
     // create review and get single and all reviews
     const [createReview, { isLoading: isCreating }] = useCreateReviewMutation();
-    const { data: singleReview } = useGetReviewByUserIdQuery(userData?.data?._id, { skip: !user });
+    const { data: singleReview } = useGetReviewByUserIdQuery(userData?.data?._id, { skip: (user?.role === 'admin') });
+
     const userReview = singleReview?.data;
     const { data: reviews } = useGetAllReviewsQuery({ limit: 2, date: -1 });
     const reviewsData = reviews?.data?.reviews;
 
-    const overallRating = reviews?.data?.overallRating;
+    const overallRating = reviews?.data?.averageRating;
 
     const handleFeedbackSubmit = () => {
         const reviewSubmitData = {
@@ -38,8 +40,11 @@ const ReviewSection = () => {
         navigate('/signin', { state: { from: '/#review-section' } });
     };
 
-    const location = useLocation();
+    const handleReview = () => {
+        navigate('/reviews');
+    }
 
+    const location = useLocation();
     useEffect(() => {
         if (location.hash) {
             const element = document.getElementById(location.hash.substring(1));
@@ -75,17 +80,17 @@ const ReviewSection = () => {
                 />
                 <List
                     itemLayout="vertical"
-                    dataSource={reviewsData} // todo change review data number
+                    dataSource={reviewsData}
                     renderItem={(item) => (
                         <List.Item>
-                            <ReviewCard item={item} />
+                            <ReviewCard item={item} sortDescription={true} />
                         </List.Item>
                     )}
                 />
                 <Button
                     size='large'
                     type="link"
-                    href="/reviews"
+                    onClick={handleReview}
                     style={{ marginTop: '10px', color: 'white', textDecoration: 'underline' }}
                     className='see-all-review-btn'
                 >
@@ -109,13 +114,15 @@ const ReviewSection = () => {
                         onChange={(value) => setRating(value)}
                         style={{ color: '#ffcc00', fontSize: '24px' }}
                         className='custom-rating'
+                        disabled={user.role === 'admin'}
                     />
                     <Input.TextArea
-                        value={feedback}
+                        value={user?.role === 'admin' ? "Hi, Admin Welcome! You can't give it 🥲" : feedback}
                         onChange={(e) => setFeedback(e.target.value)}
                         rows={4}
+                        readOnly={user?.role === 'admin'}
                         placeholder="Leave your feedback"
-                        style={{ borderRadius: '10px', marginTop: '10px', height: "200px", padding: "20px" }}
+                        style={{ borderRadius: '10px', marginTop: '10px', height: "200px", padding: "20px", color: `${user?.role === "admin" ? "#808080" : "black"}` }}
                     />
                     {
                         userReview ?
@@ -132,7 +139,7 @@ const ReviewSection = () => {
                                 type="primary"
                                 onClick={handleFeedbackSubmit}
                                 style={{ marginTop: '10px' }}
-                                disabled={isCreating}
+                                disabled={isCreating || (user?.role === 'admin')}
                                 size='large'
                             >
                                 Submit Review <ArrowRightOutlined />

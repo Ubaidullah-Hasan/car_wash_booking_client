@@ -7,6 +7,7 @@ import { CaretRightOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import { currentUser, logout } from "../../Redux/features/auth/authSlice";
 import ProfileMenu from "./ProfileMenu";
+import Logo from "../Logo";
 
 const MainHeader = () => {
     const navigate = useNavigate();
@@ -64,28 +65,12 @@ const MainHeader = () => {
         }
     ]
 
-    const handleLogo = () => {
-        navigate("/");
-    }
-
-
-
 
     return (
         <Header
             className="custom-header"
             style={{ display: "flex", alignItems: "center", justifyContent: "space-between", backgroundColor: 'white' }}>
-            <div className="logo" >
-                <span onClick={handleLogo} className="logo-container ">
-                    <span className="clv">C</span>
-                    <span className="clv">L</span>
-                    <span className="dr">D</span>
-                    <span className="dr">R</span>
-                    <span className="dr">I</span>
-                    <span className="clv">V</span>
-                    <span className="clv">E</span>
-                </span>
-            </div>
+            <Logo to={"/"} />
 
             <Menu
                 theme="light"
@@ -99,7 +84,7 @@ const MainHeader = () => {
 
             {/* right side */}
             <div>
-                <Space size={50}>
+                <Space size={20}>
                     {
                         !user ? <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} className="custom-radio-group">
                             <Radio.Button value="start" onClick={() => handleAuth("/signin")} >Sign In</Radio.Button>
@@ -111,12 +96,15 @@ const MainHeader = () => {
                             </Radio.Group>
                     }
 
-                    <Button className="custom-btn" type="primary" iconPosition="end" icon={<CaretRightOutlined />} href="/services" >
+                    <Button onClick={() => navigate("/services")} className="custom-btn" type="primary" iconPosition="end" icon={<CaretRightOutlined />}>
                         Get Started
                     </Button>
                 </Space>
             </div>
-            {/* < ProfileMenu /> */}
+
+            {/* dashboard menu */}
+            < ProfileMenu />
+
         </Header>
     );
 };

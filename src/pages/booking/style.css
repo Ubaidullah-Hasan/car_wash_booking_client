@@ -21,3 +21,8 @@
     border-color: var(--primary-color);
     cursor: default;
 }
+
+.date-disabled:disabled {
+    background-color: #d9d9d94c;
+    color: rgba(56, 56, 56, 0.309);
+}

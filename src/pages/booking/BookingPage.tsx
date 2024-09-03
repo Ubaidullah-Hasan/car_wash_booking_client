@@ -123,7 +123,7 @@ const BookingPage = () => {
                                 <Input type="text" placeholder="Enter your phone" />
                             </Form.Item>
                             <Form.Item label="Selected Time Slot">
-                                <Input value={`${slotData?.startTime} - ${slotData?.endTime}`} disabled />
+                                <Input className='date-disabled' value={`${slotData?.startTime} - ${slotData?.endTime}`} disabled />
                             </Form.Item>
                             {/* pay btn */}
                             <PayButton slotData={slotData} loading={loading} />

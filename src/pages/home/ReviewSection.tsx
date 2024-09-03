@@ -15,11 +15,10 @@ const ReviewSection = () => {
     const [feedback, setFeedback] = useState('');
     const user = useAppSelector(currentUser);
     const { data: userData } = useGetUserByEmailQuery(user?.email, { skip: !(user?.email) });
-    console.log(user);
 
     // create review and get single and all reviews
     const [createReview, { isLoading: isCreating }] = useCreateReviewMutation();
-    const { data: singleReview } = useGetReviewByUserIdQuery(userData?.data?._id, { skip: (user?.role === 'admin') });
+    const { data: singleReview } = useGetReviewByUserIdQuery(userData?.data?._id, { skip: (user?.role === 'admin') || !user });
 
     const userReview = singleReview?.data;
     const { data: reviews } = useGetAllReviewsQuery({ limit: 2, date: -1 });
@@ -114,7 +113,7 @@ const ReviewSection = () => {
                         onChange={(value) => setRating(value)}
                         style={{ color: '#ffcc00', fontSize: '24px' }}
                         className='custom-rating'
-                        disabled={user.role === 'admin'}
+                        disabled={user?.role === 'admin'}
                     />
                     <Input.TextArea
                         value={user?.role === 'admin' ? "Hi, Admin Welcome! You can't give it 🥲" : feedback}

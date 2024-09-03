@@ -4,3 +4,11 @@
     margin-top: 80px;
 }
 
+.service-details-page .slot-button:disabled {
+    background-color: #afafaf3a ;
+    color: rgba(46, 46, 46, 0.641);
+}
+.service-details-page .booking-btn:disabled {
+    background-color: #37b45ad0 ;
+    color: rgba(255, 255, 255, 0.726);
+}

@@ -11,10 +11,10 @@ import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import Admin from "../pages/Admin/Admin";
 import DashboardLayout from "../layout/DashboardLayout";
 import User from "../pages/User/User";
-import PaymentPage from "../pages/paymentPage/PaymentPage";
 import PaymentSuccess from "../pages/paymentPage/PaymentSuccess";
 import PaymentFail from "../pages/paymentPage/PaymentFail";
 import PaymentCancel from "../pages/paymentPage/PaymentCancel";
+import ProtectedRoute from "../layout/ProtectedRoute";
 
 const router = createBrowserRouter([
     {
@@ -40,7 +40,9 @@ const router = createBrowserRouter([
             },
             {
                 path: "booking",
-                element: <Booking />,
+                element: <ProtectedRoute role={"user"}>
+                    <Booking />
+                </ProtectedRoute>,
             },
         ]
     },

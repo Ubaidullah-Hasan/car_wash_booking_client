@@ -5,6 +5,7 @@ const SlotButton = ({ slot, selectedSlotId, onSelect }) => {
 
     return (
         <Button
+        className='slot-button'
             key={slot._id}
             onClick={() => onSelect(slot._id)}
             disabled={slot.isBooked !== 'available'}

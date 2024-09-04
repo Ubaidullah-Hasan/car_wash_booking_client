@@ -67,19 +67,7 @@ const router = createBrowserRouter([
     {
         path: "/signup",
         element: <SignUp />
-    },
-    {
-        path: "payment/success",
-        element: <PaymentSuccess />,
-    },
-    {
-        path: "payment/fail",
-        element: <PaymentFail />,
-    },
-    {
-        path: "payment/cancel",
-        element: <PaymentCancel />,
-    },
+    }
 ]);
 
 export default router;

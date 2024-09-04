@@ -7,13 +7,14 @@ import { useGetSlotByServiceIdQuery } from '../../Redux/features/slotManagement/
 import SlotButton from '../../components/SlotButton';
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { slotStatus } from '../../constant/constant';
 
 const { Title, Text } = Typography;
 
 const ServiceDetailsPage = () => {
     const { serviceId } = useParams();
     const navigate = useNavigate();
-    const { data: service } = useGetSingleServiceQuery(serviceId);
+    const { data: service } = useGetSingleServiceQuery(serviceId); // use into card
     const { data: slots } = useGetSlotByServiceIdQuery(serviceId, { skip: !(service?.data) });
 
     const [selectedSlot, setSelectedSlot] = useState<Record<string, any>>(
@@ -29,7 +30,7 @@ const ServiceDetailsPage = () => {
             });
         } else {
             const selectedSlotData = slots?.data?.find(slot => slot._id === id);
-            if (selectedSlotData?.isBooked === 'available') {
+            if (selectedSlotData?.isBooked === slotStatus.available) {
                 const bookingData = {
                     serviceId: selectedSlotData.service?._id,
                     slotId: id,

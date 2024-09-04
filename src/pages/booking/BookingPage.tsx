@@ -1,71 +1,59 @@
 import { useState, useEffect } from 'react';
 import { Row, Col, Card, Form, Input, Button, Typography } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import './style.css';
 import { useGetSlotBySlotIdQuery } from '../../Redux/features/slotManagement/slotManagement';
 import { ClockCircleOutlined, DollarOutlined } from '@ant-design/icons';
 import EmptyCard from '../../components/EmptyCard';
 import PayButton from '../../components/PayButton';
-import axios from 'axios';
+import { useAppSelector } from '../../Redux/hooks';
+import { currentUser } from '../../Redux/features/auth/authSlice';
+import { useGetUserByEmailQuery } from '../../Redux/features/user/userManagement.api';
+import { useCreateBookingMutation } from '../../Redux/features/bookingManagement/bookingManagement.api';
 
 const { Title } = Typography;
 
 const BookingPage = () => {
-    const navigate = useNavigate();
     const [bookingData, setBookingData] = useState({
         serviceId: null,
         slotId: null,
     });
+    const user = useAppSelector(currentUser);
+    const { data: userResponse } = useGetUserByEmailQuery(user?.email, { skip: !(user?.email) });
+    const userData = userResponse?.data;
+
     const { data: slot, isLoading } = useGetSlotBySlotIdQuery(bookingData?.slotId, { skip: !bookingData?.slotId });
     const slotData = slot?.data;
 
-
-    // payment
+    const [createBooking] = useCreateBookingMutation();
     const [loading, setLoading] = useState(false);
 
     const onFinish = async (values) => {
         setLoading(true);
-
-        // Prepare payment data
-        const paymentData = {
-            store_id: 'aamarpaytest',
-            signature_key: "dbb74894e82415a2f7ff0ec3a97e4183",
-            amount: '500',
-            tran_id: Math.floor(Math.random() * 10000),
-            currency: "BDT",
-            desc: "Description",
-            cus_add1: "Dhaka",
-            cus_add2: "Dhaka",
-            cus_city: "Dhaka",
-            cus_state: "Dhaka",
-            cus_postcode: "0",
-            cus_country: "Bangladesh",
-            type: "json",
-            success_url: 'http://localhost:5173/payment/success',
-            fail_url: 'http://localhost:5173/payment/fail',
-            cancel_url: 'http://localhost:5173/payment/cancel',
-            cus_name: values.userName,
-            cus_email: values.email,
-            cus_phone: values.phone,
-        };
-
         try {
-            const response = await axios.post('https://sandbox.aamarpay.com/index.php', paymentData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-
-            const redirect_url = response.data.payment_url;
-            if (response.data && redirect_url) {
-                window.location.href = redirect_url
+            const bookingInfo = {
+                customer: userData?._id,
+                serviceId: bookingData?.serviceId,
+                slotId: bookingData?.slotId,
+                vehicleType: "car",
+                vehicleBrand: "X",
+                vehicleModel: "Y",
+                manufacturingYear: 2020,
+                registrationPlate: "Y2U",
+                phone: values.phone,
+                name: values.name,
+                totalPrice: Number(slotData?.service.price)
+            }
+            const res = await createBooking(bookingInfo).unwrap();
+            if (res.success) {
+                window.location.href = res.data;
             }
 
         } catch (error) {
-            console.error('Payment initiation failed', error);
+            console.log(error);
         } finally {
             setLoading(false);
         }
+        // todo
     };
 
 
@@ -112,12 +100,20 @@ const BookingPage = () => {
                 {/* Right Side - User Information Form */}
                 <Col xs={24} md={12}>
                     <Card title="User Information">
-                        <Form layout="vertical" onFinish={onFinish}>
-                            <Form.Item label="User Name" name="userName" rules={[{ required: true, message: 'Please input your name!' }]}>
-                                <Input placeholder="Enter your name" />
+                        <Form
+                            layout="vertical"
+                            onFinish={onFinish}
+                            initialValues={{
+                                email: user?.email,
+                                name: userData?.name,
+                                phone: userData?.phone
+                            }}
+                        >
+                            <Form.Item label="User Name" name="name" rules={[{ required: true, message: 'Please input your name!' }]}>
+                                <Input style={{ textTransform: "capitalize" }} placeholder="Enter your name" />
                             </Form.Item>
                             <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
-                                <Input type="email" placeholder="Enter your email" />
+                                <Input type="email" placeholder="Enter your email" readOnly />
                             </Form.Item>
                             <Form.Item label="Phone" name="phone" rules={[{ required: true, message: 'Please input your phone!' }]}>
                                 <Input type="text" placeholder="Enter your phone" />

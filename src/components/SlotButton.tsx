@@ -1,5 +1,6 @@
 import { Button } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
+import { slotStatus } from '../constant/constant';
 
 const SlotButton = ({ slot, selectedSlotId, onSelect }) => {
 
@@ -8,7 +9,7 @@ const SlotButton = ({ slot, selectedSlotId, onSelect }) => {
         className='slot-button'
             key={slot._id}
             onClick={() => onSelect(slot._id)}
-            disabled={slot.isBooked !== 'available'}
+            disabled={slot.isBooked !== slotStatus.available}
             type="default"
             style={{
                 marginBottom: '10px',
@@ -19,7 +20,7 @@ const SlotButton = ({ slot, selectedSlotId, onSelect }) => {
             }}
         >
             {(selectedSlotId === slot._id) && <CheckOutlined style={{ marginRight: '8px' }} />}
-            {slot.isBooked === 'available' ? `${slot.startTime} - ${slot.endTime}` : slot.isBooked}
+            {slot.isBooked === slotStatus.available ? `${slot.startTime} - ${slot.endTime}` : slot.isBooked}
         </Button>
     )
 };

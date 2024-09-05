@@ -106,7 +106,7 @@ const ServiceDetailsPage = () => {
                         <Button
                         className='booking-btn'
                             type="primary"
-                            disabled={!selectedSlot?.slotId}
+                            disabled={!selectedSlot?.slotId }
                             style={{ marginTop: '20px', width: '100%' }}
                             onClick={handleBooke}
                         >

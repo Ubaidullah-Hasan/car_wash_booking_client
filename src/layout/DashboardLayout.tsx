@@ -20,31 +20,31 @@ const DashboardLayout = () => {
             key: '1',
             label: 'Overview',
             icon: <DashboardOutlined />,
-            onClick: () => navigate('/dashboard/overview'),
+            onClick: () => navigate('/dashboard/admin/overview'),
         },
         {
             key: '2',
             label: 'Bookings',
             icon: <BookOutlined />,
-            onClick: () => navigate('/dashboard/bookings'),
+            onClick: () => navigate('/dashboard/admin/bookings'),
         },
         {
             key: '3',
             label: 'User Management',
             icon: <UserOutlined />,
-            onClick: () => navigate('/dashboard/users'),
+            onClick: () => navigate('/dashboard/admin/users'),
         },
         {
             key: '4',
             label: 'Slot Management',
             icon: <ClockCircleOutlined />,
-            onClick: () => navigate('/dashboard/slots'),
+            onClick: () => navigate('/dashboard/admin/slots'),
         },
         {
             key: '5',
             label: 'Service Management',
             icon: <SettingOutlined />,
-            onClick: () => navigate('/dashboard/services'),
+            onClick: () => navigate('/dashboard/admin/serviceManagement'),
         },
         {
             key: '6',
@@ -60,10 +60,9 @@ const DashboardLayout = () => {
                 breakpoint="lg"
                 collapsedWidth="0"
                 onBreakpoint={(broken) => {
-                    console.log(broken);
                 }}
                 onCollapse={(collapsed, type) => {
-                    console.log(collapsed, type);
+                    // console.log(collapsed, type);
                 }}
             >
                 <div className="demo-logo-vertical" />
@@ -71,9 +70,9 @@ const DashboardLayout = () => {
             </Sider>
             <Layout>
                 <Header style={{ paddingLeft: 30, background: colorBgContainer }}>
-                    <Logo to={`/dashboard/${user?.role}`} />
+                    <Logo to={`/dashboard/${user?.role}/overview`} />
                 </Header>
-                <Content style={{ margin: '24px 16px 0' }}>
+                <Content style={{ margin: '24px 16px 0', height: "90vh" }}>
                     <div
                         style={{
                             padding: 24,

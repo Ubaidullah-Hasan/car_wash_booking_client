@@ -10,7 +10,7 @@ const MainLayout = () => {
 
 
     const {
-        token: { colorBgContainer, borderRadiusLG },
+        token: { borderRadiusLG },
     } = theme.useToken();
 
     return (

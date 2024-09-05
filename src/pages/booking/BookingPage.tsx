@@ -46,6 +46,7 @@ const BookingPage = () => {
             const res = await createBooking(bookingInfo).unwrap();
             if (res.success) {
                 window.location.href = res.data;
+                localStorage.removeItem('bookings');
             }
 
         } catch (error) {
@@ -53,7 +54,6 @@ const BookingPage = () => {
         } finally {
             setLoading(false);
         }
-        // todo
     };
 
 

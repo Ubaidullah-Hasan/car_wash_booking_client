@@ -15,6 +15,8 @@ import PaymentSuccess from "../pages/paymentPage/PaymentSuccess";
 import PaymentFail from "../pages/paymentPage/PaymentFail";
 import PaymentCancel from "../pages/paymentPage/PaymentCancel";
 import ProtectedRoute from "../layout/ProtectedRoute";
+import OverviewBookings from "../pages/Admin/OverviewBookings";
+import ServiceManagement from "../pages/Admin/ServiceManagement";
 
 const router = createBrowserRouter([
     {
@@ -51,8 +53,12 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         children: [
             {
-                path: "admin",
-                element: <Admin />
+                path: "admin/overview",
+                element: <OverviewBookings />,
+            },
+            {
+                path: "admin/serviceManagement",
+                element: <ServiceManagement />,
             },
             {
                 path: "user",

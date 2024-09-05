@@ -12,11 +12,20 @@ const bookingManagementApi = baseApi.injectEndpoints({
             },
             invalidatesTags: ["slot"]
         }),
-        
+        getAllBooking: builder.query({
+            query: () => ({
+                url: "/bookings",
+                method: "GET",
+            }),
+            transformResponse: (response) => {
+                return (response.data)
+            }
+        })
+
     }),
 });
 
-export const {useCreateBookingMutation} = bookingManagementApi;
+export const { useCreateBookingMutation, useGetAllBookingQuery } = bookingManagementApi;
 
 
 

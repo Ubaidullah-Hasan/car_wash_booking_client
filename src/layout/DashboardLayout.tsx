@@ -17,12 +17,28 @@ const DashboardLayout = () => {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
 
-    const [isMobile, setIsMobile] = useState(false); console.log(isMobile)
+    const [isMobile, setIsMobile] = useState(false); 
 
     const handleLog = () => {
         if (user) dispatch(logout());
         else navigate("/signIn");
     }
+
+
+    const getDefaultKey = () => {
+        const routes = [
+            { path: '/overview', key: '1' },
+            { path: '/serviceManagement', key: '2' },
+            { path: '/slotsManagement', key: '3' },
+            { path: '/userManagement', key: '4' },
+            { path: '/userBooking', key: 'userBooking' },
+            { path: '/userManagement', key: 'userManagement' }
+        ]; 
+        const matchingRoute = routes.find((item) => location.pathname.includes(item.path));
+        return matchingRoute.key;
+    }
+    const [selectedKey, setSelectedKey] = useState(getDefaultKey());
+
 
     const items = [
         {
@@ -33,32 +49,36 @@ const DashboardLayout = () => {
         },
         {
             key: '2',
-            label: 'Bookings',
-            icon: <BookOutlined />,
-            onClick: () => navigate('/dashboard/admin/bookings'),
-        },
-        {
-            key: '3',
             label: 'Service Management',
             icon: <SettingOutlined />,
             onClick: () => navigate('/dashboard/admin/serviceManagement'),
         },
         {
-            key: '4',
+            key: '3',
             label: 'Slot Management',
             icon: <ClockCircleOutlined />,
             onClick: () => navigate('/dashboard/admin/slotsManagement'),
         },
 
         {
-            key: '5',
+            key: '4',
             label: 'User Management',
             icon: <UserOutlined />,
-            onClick: () => navigate('/dashboard/admin/users'),
+            children: [ 
+                {
+                    key: 'userBooking',
+                    label: 'User Booking',
+                    onClick: () => navigate('/dashboard/admin/userBooking'),
+                },
+                {
+                    key: 'userManagement',
+                    label: 'User Manage',
+                    onClick: () => navigate('/dashboard/admin/userManagement'),
+                },
+            ]
         },
-
         {
-            key: '6',
+            key: '5',
             label: user ? 'Logout' : "Sign In",
             icon: user ? <LogoutOutlined /> : <LoginOutlined />,
             onClick: () => handleLog(),
@@ -78,7 +98,7 @@ const DashboardLayout = () => {
                     breakpoint="lg"
                     collapsedWidth="0"
                     onBreakpoint={(broken) => {
-                        console.log(broken)
+
                     }}
                     onCollapse={(collapsed) => {
                         setIsMobile(collapsed);
@@ -86,11 +106,11 @@ const DashboardLayout = () => {
                     className={!isMobile ? 'dash-sidebar' : ""}
                 >
                     <div className="demo-logo-vertical" />
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={[selectedKey]} items={items} />
                 </Sider>
                 <Layout>
-                    <Header style={{ paddingLeft: 30, background: colorBgContainer }}>
-                        <Logo to={`/dashboard/${user?.role}/overview`} />
+                    <Header className={!isMobile ? "dash-content" : ""} style={{ paddingLeft: 30, background: colorBgContainer }}>
+                        <Logo to={`/`} />
                     </Header>
                     <Content className={!isMobile ? "dash-content" : ""} style={{ margin: '24px 16px 0', height: "90vh" }}>
                         <div

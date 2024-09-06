@@ -9,11 +9,12 @@ import ServicesPage from "../pages/services/ServicesPage";
 import ServiceDetailsPage from "../pages/serviceDetailsPage/ServiceDetailsPage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import DashboardLayout from "../layout/DashboardLayout";
-import User from "../pages/User/User";
 import ProtectedRoute from "../layout/ProtectedRoute";
 import OverviewBookings from "../pages/Admin/OverviewBookings";
 import ServiceManagement from "../pages/Admin/ServiceManagement";
 import SlotManagement from "../pages/Admin/SlotManagement";
+import UserManagement from "../pages/Admin/UserManagement";
+import UserBookings from "../pages/Admin/UserBooking";
 
 const router = createBrowserRouter([
     {
@@ -62,8 +63,12 @@ const router = createBrowserRouter([
                 element: <SlotManagement />,
             },
             {
-                path: "user",
-                element: <User />
+                path: "admin/userManagement",
+                element: <UserManagement />
+            },
+            {
+                path: "admin/userBooking",
+                element: <UserBookings />
             }
         ]
     },

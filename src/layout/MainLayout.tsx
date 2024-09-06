@@ -7,8 +7,6 @@ import MainFooter from "../components/footer/MainFooter";
 
 const MainLayout = () => {
 
-
-
     const {
         token: { borderRadiusLG },
     } = theme.useToken();

@@ -1,10 +1,21 @@
-.status-btn-available{
+.status-btn-available {
     border-color: #37B45A;
     color: #37B45A;
     cursor: default;
 }
-.status-btn-cancel{
+
+.status-btn-cancel {
     border-color: #f9473e;
     color: #f9473e;
     cursor: default;
+}
+
+.complete-btn {
+    color: #37B45A;
+    border-color: #37B45A;
+}
+
+.canceled-btn {
+    color: #f9473e;
+    border-color: #f9473e;
 }

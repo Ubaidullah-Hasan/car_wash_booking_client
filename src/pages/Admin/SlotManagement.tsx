@@ -7,13 +7,14 @@ import { useState } from "react";
 import { slotStatus } from "../../constant/constant";
 import './style.css'
 import { RxUpdate } from "react-icons/rx";
+import moment from "moment";
 
 const SlotManagement = () => {
     const [err, setErr] = useState('');
     const { data: slots } = useGetAllSlotsQuery(undefined);
     const { data: servicesResponse } = useGetAllServicesQuery(undefined);
     const [createSlot, { isLoading: creatingSlot }] = useCreateSlotsMutation();
-    const [updateSlotStatus, { isLoading: updatingSlot }] = useUpdateSlotStatusMutation();
+    const [updateSlotStatus] = useUpdateSlotStatusMutation();
 
     const servicesOptions = servicesResponse?.data.map(service => ({
         label: service.name,
@@ -46,6 +47,7 @@ const SlotManagement = () => {
         time: `${slot.startTime} - ${slot.endTime}`,
         status: slot.isBooked,
         serviceName: slot.service.name,
+        date: slot.date
     }))
 
     return (
@@ -60,6 +62,13 @@ const SlotManagement = () => {
                     dataIndex="serviceName"
                     key="serviceName"
 
+                />
+                <Column
+                    title="Date"
+                    dataIndex="date"
+                    key="date"
+                    render={(item) => <p>{moment(item).format("DD-MM-YYYY")}</p>}
+                    width={"15%"}
                 />
                 <Column
                     title="Time"

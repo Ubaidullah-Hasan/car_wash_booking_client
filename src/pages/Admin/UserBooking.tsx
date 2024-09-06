@@ -1,6 +1,7 @@
 import { Button, Table } from 'antd';
 import { useGetAllBookingQuery } from '../../Redux/features/bookingManagement/bookingManagement.api';
 import { bookingStatus } from '../../constant/constant';
+import moment from 'moment';
 
 const UserBookings = () => {
     const { data: booking } = useGetAllBookingQuery(undefined);
@@ -12,7 +13,7 @@ const UserBookings = () => {
         slotTime: `${item?.slotId?.startTime} - ${item?.slotId?.endTime}`,
         status: item?.status,
         paymentStatus: item?.paymentStatus,
-        date: item?.slot?.date
+        bookingDate: item?.slotId?.date
     }))
 
     const columns = [
@@ -25,6 +26,9 @@ const UserBookings = () => {
             title: 'Booking Date',
             dataIndex: 'bookingDate',
             key: 'bookingDate',
+            render: (item) => {
+                return <p>{moment(item).format("DD-MM-YYYY")}</p>
+            }
         },
         {
             title: 'Slot Time',

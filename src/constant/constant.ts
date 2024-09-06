@@ -14,3 +14,8 @@ export const bookingStatus = {
     completed: 'Completed',
     failed: 'Failed'
 }
+
+export const USER_ROLE = {
+    user: "user",
+    admin: "admin",
+};

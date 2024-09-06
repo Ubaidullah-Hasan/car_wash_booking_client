@@ -4,7 +4,7 @@ import { useGetAllBookingQuery } from '../../Redux/features/bookingManagement/bo
 const { Title } = Typography;
 
 const OverviewBookings = () => {
-    const { data: bookings, isLoading } = useGetAllBookingQuery(undefined);
+    const { data: bookings, isLoading } = useGetAllBookingQuery(undefined); 
     // console.log(bookings);
 
     // Define the columns for the Table component
@@ -50,10 +50,10 @@ const OverviewBookings = () => {
     // Sample data for recent bookings (use real data from API)
     const data = bookings?.map((booking, index) => ({
         key: index,
-        serviceName: booking.serviceId.name,
-        customerName: booking.customer.name,
-        bookingDate: booking.date,
-        status: booking.status,
+        serviceName: booking?.serviceId?.name,
+        customerName: booking?.customer?.name,
+        bookingDate: booking?.createdAt,
+        status: booking?.status,
     }));
 
     return (

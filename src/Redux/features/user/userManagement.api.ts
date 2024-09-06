@@ -9,9 +9,30 @@ const userApi = baseApi.injectEndpoints({
                     method: 'GET',
                     params: email
                 }
-            }
+            },
+            providesTags: ["user"]
+        }),
+        getAllUser: builder.query({
+            query: () => {
+                return {
+                    url: `/auth`,
+                    method: 'GET',
+                }
+            },
+            providesTags: ["user"]
+        }),
+        updateUserRole: builder.mutation({
+            query: (args) => {
+                console.log(args);
+                return {
+                    url: `/auth/role/${args.userId}`,
+                    method: 'PATCH',
+                    body: args.role
+                }
+            },
+            invalidatesTags: ["user"]
         })
     }),
 });
 
-export const { useGetUserByEmailQuery } = userApi;
+export const { useGetUserByEmailQuery, useGetAllUserQuery, useUpdateUserRoleMutation } = userApi;

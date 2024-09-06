@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Table, Button, Modal, Form, Input, Space, Popconfirm, message, Image } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, FieldTimeOutlined } from '@ant-design/icons';
 import { useCreateServiceMutation, useDeleteServiceMutation, useGetAllServicesQuery, useUpdateServiceMutation } from '../../Redux/features/serviceManagement/serviceManagement.api';
 
 const ServiceManagement = () => {
-    const [services, setServices] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [currentService, setCurrentService] = useState(null);
     const [form] = Form.useForm();
     const { data: servicesResponse, isLoading } = useGetAllServicesQuery(undefined);
     const servicesData = servicesResponse?.data;
-    const [createService, { isSuccess: successfullyCreateService }] = useCreateServiceMutation();
-    const [updateService, { isSuccess: successfullyUpdateService }] = useUpdateServiceMutation();
+    const [createService] = useCreateServiceMutation();
+    const [updateService] = useUpdateServiceMutation();
     const [deleteService] = useDeleteServiceMutation();
 
     const showModal = (service = null) => {

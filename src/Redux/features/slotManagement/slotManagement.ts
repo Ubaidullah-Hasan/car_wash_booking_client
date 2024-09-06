@@ -19,11 +19,37 @@ const serviceManagementApi = baseApi.injectEndpoints({
                 }
             },
             providesTags: ['slot']
+        }),
+        getAllSlots: builder.query({
+            query: () => ({
+                url: "/slots",
+                method: "GET",
+            }),
+            providesTags: ['slot']
+        }),
+        createSlots: builder.mutation({
+            query: (data) => ({
+                url: "/slots",
+                method: "POST",
+                body: data
+            }),
+            invalidatesTags: ['slot']
+        }),
+        updateSlotStatus: builder.mutation({
+            query: (args) => {
+                console.log(args.status);
+                return {
+                    url: `/slots/status/${args.slotId}`,
+                    method: "PATCH",
+                    body: args.status
+                }
+            },
+            invalidatesTags: ['slot']
         })
     }),
 });
 
-export const { useGetSlotByServiceIdQuery, useGetSlotBySlotIdQuery } = serviceManagementApi;
+export const { useGetSlotByServiceIdQuery, useGetSlotBySlotIdQuery, useGetAllSlotsQuery, useCreateSlotsMutation, useUpdateSlotStatusMutation } = serviceManagementApi;
 
 
 

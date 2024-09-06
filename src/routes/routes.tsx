@@ -8,15 +8,12 @@ import Review from "../pages/reviews/Review";
 import ServicesPage from "../pages/services/ServicesPage";
 import ServiceDetailsPage from "../pages/serviceDetailsPage/ServiceDetailsPage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
-import Admin from "../pages/Admin/Admin";
 import DashboardLayout from "../layout/DashboardLayout";
 import User from "../pages/User/User";
-import PaymentSuccess from "../pages/paymentPage/PaymentSuccess";
-import PaymentFail from "../pages/paymentPage/PaymentFail";
-import PaymentCancel from "../pages/paymentPage/PaymentCancel";
 import ProtectedRoute from "../layout/ProtectedRoute";
 import OverviewBookings from "../pages/Admin/OverviewBookings";
 import ServiceManagement from "../pages/Admin/ServiceManagement";
+import SlotManagement from "../pages/Admin/SlotManagement";
 
 const router = createBrowserRouter([
     {
@@ -59,6 +56,10 @@ const router = createBrowserRouter([
             {
                 path: "admin/serviceManagement",
                 element: <ServiceManagement />,
+            },
+            {
+                path: "admin/slotsManagement",
+                element: <SlotManagement />,
             },
             {
                 path: "user",

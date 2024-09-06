@@ -22,7 +22,7 @@ const SignIn = () => {
     const [err, setErr] = useState<string>('');
     const [login, { isLoading }] = useLoginMutation();
     const dispatch = useAppDispatch();
-    const location = useLocation(); console.log(location);
+    const location = useLocation();
     const navigate = useNavigate();
     const path = location?.state?.from || "/";
 

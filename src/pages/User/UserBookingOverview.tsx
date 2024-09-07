@@ -1,13 +1,13 @@
 import { Table, Tag, Card, Typography } from 'antd';
 import { useGetMyBookingQuery } from '../../Redux/features/bookingManagement/bookingManagement.api';
 import { bookingStatus, paymentStatus } from '../../constant/constant';
+import UpcomingBookings from './UpCommingBocking';
 
 const { Title } = Typography;
 
 const UserBookingOverview = () => {
-    const { data: bookings, isLoading } = useGetMyBookingQuery(undefined);
+    const { data: bookings, isLoading } = useGetMyBookingQuery(undefined);console.log(bookings)
 
-    // Define the columns for the Table component
     const columns = [
         {
             title: 'Service Name',
@@ -48,7 +48,6 @@ const UserBookingOverview = () => {
         }
     ];
 
-    // Sample data for recent bookings (use real data from API)
     const data = bookings?.map((booking, index) => ({
         key: index,
         serviceName: booking?.serviceId?.name,
@@ -67,6 +66,7 @@ const UserBookingOverview = () => {
                 loading={isLoading}
                 pagination={false}
             />
+            {/* <UpcomingBookings bookings={bookings} /> */}
         </Card>
     );
 };

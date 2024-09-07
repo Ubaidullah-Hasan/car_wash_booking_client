@@ -7,6 +7,7 @@ import { currentUser, logout } from '../Redux/features/auth/authSlice';
 import { ClockCircleOutlined, DashboardOutlined, LoginOutlined, LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import "./style.css"
 import { useState } from 'react';
+import ScrollToTopButton from '../components/scrollButton/ScrollToTopButton';
 const { Header, Content, Footer, Sider } = Layout;
 
 
@@ -153,6 +154,7 @@ const DashboardLayout = () => {
                     <Footer style={{ textAlign: 'center' }}>
                         Ant Design ©{new Date().getFullYear()} Created by Ant UED
                     </Footer>
+                    <ScrollToTopButton />
                 </Layout>
             </Layout>
         </ConfigProvider>

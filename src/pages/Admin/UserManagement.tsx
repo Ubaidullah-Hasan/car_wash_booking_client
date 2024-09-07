@@ -67,7 +67,7 @@ const UserManagement = () => {
 
     return (
         <>
-            <Table columns={columns} dataSource={userData} />
+            <Table columns={columns} dataSource={userData} pagination={false} />
 
             <Modal
                 title="Edit User Role"

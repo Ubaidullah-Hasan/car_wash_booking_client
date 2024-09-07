@@ -7,13 +7,16 @@ import { useGetSlotByServiceIdQuery } from '../../Redux/features/slotManagement/
 import SlotButton from '../../components/SlotButton';
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { slotStatus } from '../../constant/constant';
+import { slotStatus, USER_ROLE } from '../../constant/constant';
+import { useAppSelector } from '../../Redux/hooks';
+import { currentUser } from '../../Redux/features/auth/authSlice';
 
 const { Title, Text } = Typography;
 
 const ServiceDetailsPage = () => {
     const { serviceId } = useParams();
     const navigate = useNavigate();
+    const user = useAppSelector(currentUser);
     const { data: service } = useGetSingleServiceQuery(serviceId); // use into card
     const { data: slots } = useGetSlotByServiceIdQuery(serviceId, { skip: !(service?.data) });
 
@@ -104,15 +107,16 @@ const ServiceDetailsPage = () => {
                             ))}
                         </div>
                         <Button
-                        className='booking-btn'
+                            className='booking-btn'
                             type="primary"
-                            disabled={!selectedSlot?.slotId }
+                            disabled={user?.role === USER_ROLE.admin || !selectedSlot?.slotId}
                             style={{ marginTop: '20px', width: '100%' }}
                             onClick={handleBooke}
                         >
                             Book This Service
                         </Button>
                         < Toaster />
+                        {user?.role === USER_ROLE.admin && <p style={{color: "red"}}>Admin Can't Access This!</p>}
                     </Card>
                 </Col>
             </Row>

@@ -45,19 +45,19 @@ const DashboardLayout = () => {
             key: '1',
             label: 'Overview',
             icon: <DashboardOutlined />,
-            onClick: () => navigate('/dashboard/admin/overview'),
+            onClick: () => navigate(`/dashboard/${user.role}/overview`),
         },
         {
             key: '2',
             label: 'Service Management',
             icon: <SettingOutlined />,
-            onClick: () => navigate('/dashboard/admin/serviceManagement'),
+            onClick: () => navigate(`/dashboard/${user.role}/serviceManagement`),
         },
         {
             key: '3',
             label: 'Slot Management',
             icon: <ClockCircleOutlined />,
-            onClick: () => navigate('/dashboard/admin/slotsManagement'),
+            onClick: () => navigate(`/dashboard/${user.role}/slotsManagement`),
         },
 
         {
@@ -68,12 +68,12 @@ const DashboardLayout = () => {
                 {
                     key: 'userBooking',
                     label: 'User Booking',
-                    onClick: () => navigate('/dashboard/admin/userBooking'),
+                    onClick: () => navigate(`/dashboard/${user.role}/userBooking`),
                 },
                 {
                     key: 'userManagement',
                     label: 'User Manage',
-                    onClick: () => navigate('/dashboard/admin/userManagement'),
+                    onClick: () => navigate(`/dashboard/${user.role}/userManagement`),
                 },
             ]
         },

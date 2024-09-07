@@ -15,6 +15,7 @@ import ServiceManagement from "../pages/Admin/ServiceManagement";
 import SlotManagement from "../pages/Admin/SlotManagement";
 import UserManagement from "../pages/Admin/UserManagement";
 import UserBookings from "../pages/Admin/UserBooking";
+import UserBookingOverview from "../pages/User/UserBookingOverview";
 
 const router = createBrowserRouter([
     {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "booking",
-                element: <ProtectedRoute role={"user"}>
+                element: <ProtectedRoute role="user">
                     <Booking />
                 </ProtectedRoute>,
             },
@@ -50,26 +51,51 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <DashboardLayout />,
         children: [
+
+            // for admin
             {
                 path: "admin/overview",
-                element: <OverviewBookings />,
+                element: <ProtectedRoute role={"admin"}>
+                    <OverviewBookings />,
+                </ProtectedRoute>
             },
             {
                 path: "admin/serviceManagement",
-                element: <ServiceManagement />,
+                element:
+                    <ProtectedRoute role={"admin"}>
+                        <ServiceManagement />
+                    </ProtectedRoute>,
             },
             {
                 path: "admin/slotsManagement",
-                element: <SlotManagement />,
+                element: <ProtectedRoute role={"admin"}>
+                    <SlotManagement />,
+                </ProtectedRoute>
             },
             {
                 path: "admin/userManagement",
-                element: <UserManagement />
+                element: <ProtectedRoute role={"admin"}>
+                    <UserManagement />
+                </ProtectedRoute>
             },
             {
                 path: "admin/userBooking",
-                element: <UserBookings />
-            }
+                element: <ProtectedRoute role="admin">
+                    <UserBookings />
+                </ProtectedRoute >
+            },
+            // for user
+            {
+                path: "user/overview",
+                element: <ProtectedRoute role={"user"}>
+                    <UserBookingOverview />,
+                </ProtectedRoute>
+            },
+            {
+                path: "user/serviceManagement",
+                element: <ServiceManagement />,
+            },
+
         ]
     },
     {

@@ -20,12 +20,21 @@ const bookingManagementApi = baseApi.injectEndpoints({
             transformResponse: (response) => {
                 return (response.data)
             }
+        }),
+        getMyBooking: builder.query({
+            query: () => ({
+                url: `/bookings/my-bookings`,
+                method: "GET",
+            }),
+            transformResponse: (response) => {
+                return (response.data)
+            }
         })
 
     }),
 });
 
-export const { useCreateBookingMutation, useGetAllBookingQuery } = bookingManagementApi;
+export const { useCreateBookingMutation, useGetAllBookingQuery, useGetMyBookingQuery } = bookingManagementApi;
 
 
 

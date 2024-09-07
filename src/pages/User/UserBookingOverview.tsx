@@ -1,11 +1,12 @@
-import { Table, Tag, Space, Card, Typography } from 'antd';
-import { useGetAllBookingQuery } from '../../Redux/features/bookingManagement/bookingManagement.api';
+import { Table, Tag, Card, Typography } from 'antd';
+import { useGetMyBookingQuery } from '../../Redux/features/bookingManagement/bookingManagement.api';
+import { bookingStatus, paymentStatus } from '../../constant/constant';
 
 const { Title } = Typography;
 
-const OverviewBookings = () => {
-    const { data: bookings, isLoading } = useGetAllBookingQuery(undefined); 
-    // console.log(bookings);
+const UserBookingOverview = () => {
+    const { data: bookings, isLoading } = useGetMyBookingQuery(undefined);
+    console.log(bookings);
 
     // Define the columns for the Table component
     const columns = [
@@ -18,7 +19,7 @@ const OverviewBookings = () => {
             title: 'Customer Name',
             dataIndex: 'customerName',
             key: 'customerName',
-            render: (item) => <p style={{textTransform: "capitalize"}}>{item}</p>
+            render: (item) => <p style={{ textTransform: "capitalize" }}>{item}</p>
         },
         {
             title: 'Booking Date',
@@ -31,30 +32,31 @@ const OverviewBookings = () => {
             dataIndex: 'status',
             key: 'status',
             render: (status) => (
-                <Tag color={status === 'booked' ? 'green' : 'volcano'}>
+                <Tag color={status === bookingStatus.completed ? 'green' : 'volcano'}>
                     {status.toUpperCase()}
                 </Tag>
             ),
         },
-        // {
-        //     title: 'Actions',
-        //     key: 'actions',
-        //     render: (_, record) => (
-        //         <Space size="middle">
-        //             <a href={`/bookings/${record.key}`}>View</a>
-        //             <a>Cancel</a>
-        //         </Space>
-        //     ),
-        // },
+        {
+            title: 'Payment Status',
+            dataIndex: 'paymentStatus',
+            key: 'paymentStatus',
+            render: (status) => (
+                <Tag color={status === paymentStatus.paid ? 'green' : 'volcano'}>
+                    {status.toUpperCase()}
+                </Tag>
+            ),
+        }
     ];
 
     // Sample data for recent bookings (use real data from API)
     const data = bookings?.map((booking, index) => ({
         key: index,
         serviceName: booking?.serviceId?.name,
-        customerName: booking?.customer?.name,
+        customerName: booking?.name,
         bookingDate: booking?.createdAt,
         status: booking?.status,
+        paymentStatus: booking?.paymentStatus,
     }));
 
     return (
@@ -70,4 +72,4 @@ const OverviewBookings = () => {
     );
 };
 
-export default OverviewBookings;
+export default UserBookingOverview;

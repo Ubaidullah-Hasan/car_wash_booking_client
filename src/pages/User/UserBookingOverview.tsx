@@ -6,7 +6,6 @@ const { Title } = Typography;
 
 const UserBookingOverview = () => {
     const { data: bookings, isLoading } = useGetMyBookingQuery(undefined);
-    console.log(bookings);
 
     // Define the columns for the Table component
     const columns = [

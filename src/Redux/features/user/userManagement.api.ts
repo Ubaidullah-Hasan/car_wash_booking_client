@@ -7,7 +7,6 @@ const userApi = baseApi.injectEndpoints({
                 return {
                     url: `/auth/${email}`,
                     method: 'GET',
-                    params: email
                 }
             },
             providesTags: ["user"]
@@ -31,8 +30,19 @@ const userApi = baseApi.injectEndpoints({
                 }
             },
             invalidatesTags: ["user"]
+        }),
+        updateUserProfile: builder.mutation({
+            query: (args) => {
+                console.log(args);
+                return {
+                    url: `/auth/${args.email}`,
+                    method: 'PATCH',
+                    body: args.data
+                }
+            },
+            invalidatesTags: ["user"]
         })
     }),
 });
 
-export const { useGetUserByEmailQuery, useGetAllUserQuery, useUpdateUserRoleMutation } = userApi;
+export const { useGetUserByEmailQuery, useGetAllUserQuery, useUpdateUserRoleMutation, useUpdateUserProfileMutation } = userApi;

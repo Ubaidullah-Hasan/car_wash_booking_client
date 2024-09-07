@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ConfigProvider, Layout, Menu, theme } from 'antd';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Logo from '../components/Logo';
 import { useAppDispatch, useAppSelector } from '../Redux/hooks';
 import { currentUser, logout } from '../Redux/features/auth/authSlice';
-import { BookOutlined, ClockCircleOutlined, DashboardOutlined, LoginOutlined, LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { ClockCircleOutlined, DashboardOutlined, LoginOutlined, LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import "./style.css"
 import { useState } from 'react';
 const { Header, Content, Footer, Sider } = Layout;
@@ -17,11 +18,14 @@ const DashboardLayout = () => {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
 
-    const [isMobile, setIsMobile] = useState(false); 
+    const [isMobile, setIsMobile] = useState(false);
 
     const handleLog = () => {
-        if (user) dispatch(logout());
-        else navigate("/signIn");
+        if (user) {
+            dispatch(logout());
+            navigate("/signIn", { state: { from: "/" } });
+        }
+        else navigate("/signIn", { state: { from: "/" } });
     }
 
 
@@ -32,15 +36,16 @@ const DashboardLayout = () => {
             { path: '/slotsManagement', key: '3' },
             { path: '/userManagement', key: '4' },
             { path: '/userBooking', key: 'userBooking' },
-            { path: '/userManagement', key: 'userManagement' }
-        ]; 
+            { path: '/userManagement', key: 'userManagement' },
+            { path: '/profile', key: 'myprofile' }
+        ];
         const matchingRoute = routes.find((item) => location.pathname.includes(item.path));
         return matchingRoute.key;
     }
     const [selectedKey, setSelectedKey] = useState(getDefaultKey());
 
 
-    const items = [
+    const itemsOfAdmin = [
         {
             key: '1',
             label: 'Overview',
@@ -64,7 +69,7 @@ const DashboardLayout = () => {
             key: '4',
             label: 'User Management',
             icon: <UserOutlined />,
-            children: [ 
+            children: [
                 {
                     key: 'userBooking',
                     label: 'User Booking',
@@ -76,6 +81,27 @@ const DashboardLayout = () => {
                     onClick: () => navigate(`/dashboard/${user.role}/userManagement`),
                 },
             ]
+        },
+        {
+            key: '5',
+            label: user ? 'Logout' : "Sign In",
+            icon: user ? <LogoutOutlined /> : <LoginOutlined />,
+            onClick: () => handleLog(),
+        },
+    ];
+
+    const itemsOfUser = [
+        {
+            key: '1',
+            label: 'Overview',
+            icon: <DashboardOutlined />,
+            onClick: () => navigate(`/dashboard/${user.role}/overview`),
+        },
+        {
+            key: 'myprofile',
+            label: 'My Profile',
+            icon: <UserOutlined />,
+            onClick: () => navigate(`/dashboard/${user.role}/profile`),
         },
         {
             key: '5',
@@ -106,7 +132,7 @@ const DashboardLayout = () => {
                     className={!isMobile ? 'dash-sidebar' : ""}
                 >
                     <div className="demo-logo-vertical" />
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={[selectedKey]} items={items} />
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={[selectedKey]} items={user?.role === "admin" ? itemsOfAdmin : itemsOfUser} />
                 </Sider>
                 <Layout>
                     <Header className={!isMobile ? "dash-content" : ""} style={{ paddingLeft: 30, background: colorBgContainer }}>

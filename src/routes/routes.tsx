@@ -16,6 +16,7 @@ import SlotManagement from "../pages/Admin/SlotManagement";
 import UserManagement from "../pages/Admin/UserManagement";
 import UserBookings from "../pages/Admin/UserBooking";
 import UserBookingOverview from "../pages/User/UserBookingOverview";
+import UserProfile from "../pages/User/UserProfile";
 
 const router = createBrowserRouter([
     {
@@ -89,6 +90,12 @@ const router = createBrowserRouter([
                 path: "user/overview",
                 element: <ProtectedRoute role={"user"}>
                     <UserBookingOverview />,
+                </ProtectedRoute>
+            },
+            {
+                path: "user/profile",
+                element: <ProtectedRoute role={"user"}>
+                    <UserProfile />,
                 </ProtectedRoute>
             },
             {

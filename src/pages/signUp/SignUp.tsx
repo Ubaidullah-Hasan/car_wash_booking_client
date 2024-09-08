@@ -37,8 +37,8 @@ const SignUp = () => {
 
     return (
         <div className='form-bg'>
-            <Row justify="center" align={"middle"} style={{ height: "100vh" }}>
-                <Col span={7}>
+            <Row justify="center" align={"middle"} style={{ minHeight: "100vh", padding: "40px 0px" }}>
+                <Col xs={20} md={12} lg={10} xl={7}> 
                     <Form
                         className='custom-form'
                         form={form}

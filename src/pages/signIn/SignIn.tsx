@@ -49,7 +49,7 @@ const SignIn = () => {
     return (
     <div className='form-bg'>
         <Row justify="center" align={"middle"} style={{ height: "100vh" }}>
-            <Col span={7}>
+                <Col xs={20} md={12} lg={10} xl={7}> 
                 <Form
                     className='custom-form'
                     initialValues={{ remember: true }}

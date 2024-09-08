@@ -29,9 +29,14 @@ const SignIn = () => {
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
         try {
             const res = await login(values);
+            if (res?.error?.data?.success === false){
+                return setErr(res.error.data.message);
+            }
+            
             const user = verifyToken(res.data.token);
             dispatch(setUser({ user: user, token: res.data.token }));
             navigate(path);
+            
         } catch (error) {
             setErr("Something went wrong");
         }

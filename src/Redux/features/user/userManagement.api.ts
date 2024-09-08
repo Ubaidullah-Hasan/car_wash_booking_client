@@ -33,7 +33,6 @@ const userApi = baseApi.injectEndpoints({
         }),
         updateUserProfile: builder.mutation({
             query: (args) => {
-                console.log(args);
                 return {
                     url: `/auth/${args.email}`,
                     method: 'PATCH',

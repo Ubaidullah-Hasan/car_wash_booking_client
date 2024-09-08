@@ -7,7 +7,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-:root{
+:root {
     --primary-color: #37B45A;
     --secondary-color: rgb(2, 156, 173);
 }
@@ -57,22 +57,25 @@ h2 {
     min-height: 80vh;
 }
 
-.margin-y-medium{
+.margin-y-medium {
     margin: 80px 0;
 }
-.padding-y-medium{
-    padding-top: 80px ;
+
+.padding-y-medium {
+    padding-top: 80px;
     padding-bottom: 80px;
 }
-.margin-x-small{
+
+.margin-x-small {
     margin: 60px 0;
 }
 
-.text-green{
-    color: var(--primary-color) ;
+.text-green {
+    color: var(--primary-color);
 }
-.bg-green{
-    background-color: var(--primary-color) ;
+
+.bg-green {
+    background-color: var(--primary-color);
 }
 
 .form-bg {

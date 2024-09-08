@@ -91,11 +91,7 @@ const ServiceDetailsPage = () => {
                 <Col xs={24} md={12}>
                     <Card>
                         <Title level={3} style={{ textAlign: "center", textTransform: "uppercase" }}>Available Slots</Title>
-                        {/* <Calendar
-                            fullscreen={false}
-                            value={selectedDate}
-                            onSelect={handleDateChange}
-                        /> */}
+                        
                         <div style={{ marginTop: '20px' }}>
                             {slots?.data?.map(slot => (
                                 <SlotButton

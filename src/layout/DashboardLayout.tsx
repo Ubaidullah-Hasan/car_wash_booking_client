@@ -139,7 +139,7 @@ const DashboardLayout = () => {
                     <Header className={!isMobile ? "dash-content" : ""} style={{ paddingLeft: 30, background: colorBgContainer }}>
                         <Logo to={`/`} />
                     </Header>
-                    <Content className={!isMobile ? "dash-content" : ""} style={{ margin: '24px 16px 0', height: "90vh" }}>
+                    <Content className={!isMobile ? "dash-content" : ""} style={{ margin: '24px 16px 0', minHeight: "90vh" }}>
                         <div
                             style={{
                                 padding: 24,

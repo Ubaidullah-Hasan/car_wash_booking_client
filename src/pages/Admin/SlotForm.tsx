@@ -46,7 +46,7 @@ const SlotForm = ({ onSubmit, options, error, loading }) => {
                         label="Start Time"
                         rules={[{ required: true, message: 'Please select a start time!' }]}
                     >
-                        <TimePicker use12Hours format="h:mm a" />
+                        <TimePicker use12Hours format="h:mm a" needConfirm={false} />
                     </Form.Item>
                 </Col>
 
@@ -57,7 +57,7 @@ const SlotForm = ({ onSubmit, options, error, loading }) => {
                         label="End Time"
                         rules={[{ required: true, message: 'Please select an end time!' }]}
                     >
-                        <TimePicker use12Hours format="h:mm a" />
+                        <TimePicker use12Hours format="h:mm a" needConfirm={false} />
                     </Form.Item>
                 </Col>
 

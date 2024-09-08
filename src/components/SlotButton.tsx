@@ -1,10 +1,12 @@
-import { Button } from 'antd';
+import { Badge, Button } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 import { slotStatus } from '../constant/constant';
+import moment from 'moment';
 
 const SlotButton = ({ slot, selectedSlotId, onSelect }) => {
-
+    const date = (moment(slot?.date).format("DD-MM-YYYY"))
     return (
+        <Badge.Ribbon text={date} color="red">
         <Button
         className='slot-button'
             key={slot._id}
@@ -22,6 +24,7 @@ const SlotButton = ({ slot, selectedSlotId, onSelect }) => {
             {(selectedSlotId === slot._id) && <CheckOutlined style={{ marginRight: '8px' }} />}
             {slot.isBooked === slotStatus.available ? `${slot.startTime} - ${slot.endTime}` : slot.isBooked}
         </Button>
+        </Badge.Ribbon>
     )
 };
 

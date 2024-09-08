@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { useAppSelector } from '../../Redux/hooks';
 import { currentUser } from '../../Redux/features/auth/authSlice';
 import { useGetUserByEmailQuery, useUpdateUserProfileMutation } from '../../Redux/features/user/userManagement.api';
@@ -9,7 +9,7 @@ const UserProfile = () => {
     const cuUser = useAppSelector(currentUser);
     const { data } = useGetUserByEmailQuery(cuUser?.email, { skip: !cuUser.email });
     const user = data?.data;
-    const [updateUser] = useUpdateUserProfileMutation();
+    const [updateUser, {isLoading}] = useUpdateUserProfileMutation();
 
     useEffect(() => {
         if (user) {
@@ -22,9 +22,13 @@ const UserProfile = () => {
         }
     }, [user, form]);
 
-    const onFinish = values => {
-        console.log(values);
-        updateUser({ data: values , email: cuUser?.email});
+    const onFinish = async (values) => {
+        const res = await updateUser({ data: values, email: cuUser?.email });
+        if (res?.data?.success) {
+            message.success("User updated successfully!")
+        } else {
+            message.error("")
+        }
     };
 
     return (
@@ -74,7 +78,7 @@ const UserProfile = () => {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" >
+                    <Button type="primary" htmlType="submit" loading={isLoading} >
                         Update Profile
                     </Button>
                 </Form.Item>

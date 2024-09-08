@@ -22,8 +22,8 @@ const bookingManagementApi = baseApi.injectEndpoints({
             }
         }),
         getMyBooking: builder.query({
-            query: () => ({
-                url: `/bookings/my-bookings`,
+            query: (userEmail) => ({
+                url: `/bookings/my-bookings/${userEmail}`,
                 method: "GET",
             }),
             transformResponse: (response) => {

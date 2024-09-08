@@ -56,7 +56,7 @@ const SlotManagement = () => {
                 <SlotForm error={err} onSubmit={onSubmit} options={servicesOptions} loading={creatingSlot} />
             </div>
 
-            <Table dataSource={slotsData} pagination={false}>
+            <Table dataSource={slotsData} pagination={{ pageSize: 5 }}>
                 <Column
                     title="Service"
                     dataIndex="serviceName"

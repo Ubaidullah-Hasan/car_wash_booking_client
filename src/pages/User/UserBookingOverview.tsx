@@ -1,74 +1,21 @@
-import { Table, Tag, Card, Typography } from 'antd';
 import { useGetMyBookingQuery } from '../../Redux/features/bookingManagement/bookingManagement.api';
-import { bookingStatus, paymentStatus } from '../../constant/constant';
-import UpcomingBookings from './UpCommingBocking';
-
-const { Title } = Typography;
+import { useAppSelector } from '../../Redux/hooks';
+import { currentUser } from '../../Redux/features/auth/authSlice';
+import PastBooking from './PastBooking';
+import UpCommingBocking from './UpCommingBocking';
 
 const UserBookingOverview = () => {
-    const { data: bookings, isLoading } = useGetMyBookingQuery(undefined);console.log(bookings)
-
-    const columns = [
-        {
-            title: 'Service Name',
-            dataIndex: 'serviceName',
-            key: 'serviceName',
-        },
-        {
-            title: 'Customer Name',
-            dataIndex: 'customerName',
-            key: 'customerName',
-            render: (item) => <p style={{ textTransform: "capitalize" }}>{item}</p>
-        },
-        {
-            title: 'Booking Date',
-            dataIndex: 'bookingDate',
-            key: 'bookingDate',
-            render: (text) => new Date(text).toLocaleDateString(),
-        },
-        {
-            title: 'Status',
-            dataIndex: 'status',
-            key: 'status',
-            render: (status) => (
-                <Tag color={status === bookingStatus.completed ? 'green' : 'volcano'}>
-                    {status.toUpperCase()}
-                </Tag>
-            ),
-        },
-        {
-            title: 'Payment Status',
-            dataIndex: 'paymentStatus',
-            key: 'paymentStatus',
-            render: (status) => (
-                <Tag color={status === paymentStatus.paid ? 'green' : 'volcano'}>
-                    {status.toUpperCase()}
-                </Tag>
-            ),
-        }
-    ];
-
-    const data = bookings?.map((booking, index) => ({
-        key: index,
-        serviceName: booking?.serviceId?.name,
-        customerName: booking?.name,
-        bookingDate: booking?.createdAt,
-        status: booking?.status,
-        paymentStatus: booking?.paymentStatus,
-    }));
+    const user = useAppSelector(currentUser)
+    const { data: bookings, isLoading } = useGetMyBookingQuery(user?.email, { skip: !user?.email });
 
     return (
-        <Card>
-            <Title level={3}>Recent Bookings Overview</Title>
-            <Table
-                columns={columns}
-                dataSource={data}
-                loading={isLoading}
-                pagination={false}
-            />
-            {/* <UpcomingBookings bookings={bookings} /> */}
-        </Card>
-    );
-};
+        <>
+            <PastBooking bookings={bookings} isLoading={isLoading} />
+            <div style={{marginTop: "20px"}}>
+                <UpCommingBocking bookings={bookings} />
+            </div>
+        </>
+    )
+}
 
 export default UserBookingOverview;

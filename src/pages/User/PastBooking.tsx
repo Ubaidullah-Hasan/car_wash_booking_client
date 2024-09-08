@@ -13,7 +13,6 @@ const PastBooking = ({ bookings, isLoading }) => {
         const bookingDateTime = moment(`${booking?.slotId?.date} ${booking?.slotId?.startTime}`, 'YYYY-MM-DD h:mm A');
         return bookingDateTime.isBefore(now);
     });
-    console.log(bookings);
 
     const columns = [
         {

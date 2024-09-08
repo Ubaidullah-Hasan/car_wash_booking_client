@@ -1,9 +1,10 @@
-import { ConfigProvider, Layout, theme } from "antd";
+import { Button, ConfigProvider, Layout, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { Outlet } from "react-router-dom";
 import MainHeader from "../components/header/Header";
 import MainFooter from "../components/footer/MainFooter";
 import ScrollToTopButton from "../components/scrollButton/ScrollToTopButton";
+import ImmediatedSlot from "../components/ImmediatedSlot";
 
 
 const MainLayout = () => {
@@ -25,6 +26,7 @@ const MainLayout = () => {
             <Layout>
                 <MainHeader />
                 <Content>
+                    <Button type="primary" danger className="float-btn"><ImmediatedSlot /></Button>
                     <div
                         style={{
                             background: "#f5f5f5",

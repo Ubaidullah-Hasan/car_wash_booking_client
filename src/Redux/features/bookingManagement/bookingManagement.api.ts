@@ -29,10 +29,11 @@ const bookingManagementApi = baseApi.injectEndpoints({
             transformResponse: (response) => {
                 return (response.data)
             }
-        })
-
+        }),
     }),
 });
+
+
 
 export const { useCreateBookingMutation, useGetAllBookingQuery, useGetMyBookingQuery } = bookingManagementApi;
 

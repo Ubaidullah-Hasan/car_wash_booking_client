@@ -45,7 +45,8 @@ const serviceManagementApi = baseApi.injectEndpoints({
                 }
             },
             invalidatesTags: ['slot']
-        })
+        }),
+        
     }),
 });
 

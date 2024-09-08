@@ -1,4 +1,4 @@
-import { Card, Row, Col, Typography, Table, Badge } from 'antd';
+import { Card, Row, Col, Typography, Badge } from 'antd';
 import moment from 'moment';
 import Countdown from 'react-countdown';
 import "./style.css"
@@ -18,7 +18,7 @@ const UpCommingBocking = ({ bookings }) => {
         <div>
             <Card >
                 <Title level={3} style={{ marginBottom: "30px", textAlign: "center" }}>Upcoming Bookings</Title>
-                <Row gutter={16}>
+                <Row gutter={[16, 16]}>
                     {upcomingBookings?.map((booking) => {
                         const bookingDateTime = moment(`${booking?.slotId?.date} ${booking?.slotId?.time}`, 'YYYY-MM-DD h:mm A');
                         return (

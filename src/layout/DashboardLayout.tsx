@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ConfigProvider, Layout, Menu, theme } from 'antd';
+import { Button, ConfigProvider, Layout, Menu, theme } from 'antd';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Logo from '../components/Logo';
 import { useAppDispatch, useAppSelector } from '../Redux/hooks';
@@ -8,6 +8,7 @@ import { ClockCircleOutlined, DashboardOutlined, LoginOutlined, LogoutOutlined, 
 import "./style.css"
 import { useState } from 'react';
 import ScrollToTopButton from '../components/scrollButton/ScrollToTopButton';
+import ImmediatedSlot from '../components/ImmediatedSlot';
 const { Header, Content, Footer, Sider } = Layout;
 
 
@@ -137,7 +138,10 @@ const DashboardLayout = () => {
                 </Sider>
                 <Layout>
                     <Header className={!isMobile ? "dash-content" : ""} style={{ paddingLeft: 30, background: colorBgContainer }}>
-                        <Logo to={`/`} />
+                        <div style={{display: "flex", alignItems: "center", justifyContent:"space-between"}}>
+                            <Logo to={`/`} />
+                            <Button type='primary' danger><ImmediatedSlot /></Button>
+                        </div>
                     </Header>
                     <Content className={!isMobile ? "dash-content" : ""} style={{ margin: '24px 16px 0', minHeight: "90vh" }}>
                         <div

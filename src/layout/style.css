@@ -13,3 +13,10 @@
 .dash-content {
     margin-left: 220px !important;
 }
+
+.float-btn{
+    position: fixed;
+    left: 20px;
+    top: 100px;
+    z-index: 2000;
+}

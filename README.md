@@ -47,5 +47,5 @@ git clone https://github.com/Ubaidullah-Hasan/car_wash_booking_client.git
 
 ## Live URL
 
-<!-- The Car Wash Booking System is deployed and can be accessed at:
-[https://car-wash-booking-system-gilt.vercel.app/](https://car-wash-booking-system-gilt.vercel.app/) -->
+The Car Wash Booking System is deployed and can be accessed at:
+[https://car-wash-booking-client.vercel.app/](https://car-wash-booking-client.vercel.app/)

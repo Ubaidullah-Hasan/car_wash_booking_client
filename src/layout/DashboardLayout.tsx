@@ -45,7 +45,7 @@ const DashboardLayout = () => {
         const matchingRoute = routes.find((item) => location.pathname.includes(item.path));
         return matchingRoute.key;
     }
-    const [selectedKey, setSelectedKey] = useState(getDefaultKey());
+    const [selectedKey] = useState(getDefaultKey());
 
 
     const itemsOfAdmin = [
@@ -126,9 +126,6 @@ const DashboardLayout = () => {
                 <Sider
                     breakpoint="lg"
                     collapsedWidth="0"
-                    onBreakpoint={(broken) => {
-
-                    }}
                     onCollapse={(collapsed) => {
                         setIsMobile(collapsed);
                     }}

@@ -23,18 +23,16 @@ const SlotManagement = () => {
 
     const onSubmit = async (values) => {
         try {
-            const res = await createSlot(values);
-            if (res?.data?.success) {
+            const res = await createSlot(values).unwrap(); 
+            if (res.success) {
                 message.success('Slot created successfully!');
                 setErr('');
-            } else {
-                setErr(res?.error?.data?.message)
-                message.error(res?.error?.data?.message);
             }
         } catch (err) {
-            console.log(err);
+            setErr(err?.data?.message || "Something went wrong");
+            message.error(err?.data?.message || "Something went wrong");
         }
-    }
+    };
 
 
     const handleStatusChange = (slotId, status) => {

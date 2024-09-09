@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { FormProps } from 'antd';
 import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
@@ -28,17 +29,18 @@ const SignIn = () => {
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
         try {
-            const res = await login(values);
-            if (res?.error?.data?.success === false){
-                return setErr(res.error.data.message);
-            }
-            
-            const user = verifyToken(res.data.token);
-            dispatch(setUser({ user: user, token: res.data.token }));
+            const res = await login(values).unwrap(); // Unwraps the response to get the data directly
+
+            const user = verifyToken(res.token);
+            dispatch(setUser({ user: user, token: res.token }));
             navigate(path);
-            
-        } catch (error) {
-            setErr("Something went wrong");
+
+        } catch (error: any) {
+            if (error?.data?.success === false) {
+                setErr(error.data.message);
+            } else {
+                setErr("Something went wrong");
+            }
         }
     };
 

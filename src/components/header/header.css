@@ -68,10 +68,6 @@
     color: #fff !important;
 }
 
-/* Ensure the logo and menu items stack properly on small screens */
-@media (max-width: 1023px) {
-    
-}
 
 .responsive-header-top{
     transform: translateY(-1000px);

@@ -5,51 +5,6 @@ import SectionTitle from '../../components/SectionTitle';
 import { useGetAllServicesQuery } from '../../Redux/features/serviceManagement/serviceManagement.api';
 
 
-const featuredServices = [
-    {
-        serviceName: "Personal Training",
-        description: "One-on-one training sessions tailored to your fitness goals.",
-        image: "https://example.com/images/personal_training.jpg",
-        price: 50,
-        duration: "1 hour"
-    },
-    {
-        serviceName: "Group Fitness Classes",
-        description: "High-energy classes that keep you motivated and fit.",
-        image: "https://example.com/images/group_fitness_classes.jpg",
-        price: 20,
-        duration: "45 minutes"
-    },
-    {
-        serviceName: "Yoga Classes",
-        description: "Relaxing yoga sessions for all skill levels.",
-        image: "https://example.com/images/yoga_classes.jpg",
-        price: 30,
-        duration: "1 hour"
-    },
-    {
-        serviceName: "Nutrition Counseling",
-        description: "Personalized nutrition plans to complement your fitness routine.",
-        image: "https://example.com/images/nutrition_counseling.jpg",
-        price: 60,
-        duration: "1 hour"
-    },
-    {
-        serviceName: "Massage Therapy",
-        description: "Relieve muscle tension and improve recovery with professional massage therapy.",
-        image: "https://example.com/images/massage_therapy.jpg",
-        price: 70,
-        duration: "1 hour"
-    },
-    {
-        serviceName: "Physical Therapy",
-        description: "Rehabilitative services to help you recover from injuries.",
-        image: "https://example.com/images/physical_therapy.jpg",
-        price: 80,
-        duration: "1 hour"
-    }
-];
-
 
 const FeaturedServices = () => {
     const { data: servicesData, isSuccess } = useGetAllServicesQuery({limit: 6});

@@ -14,6 +14,7 @@
     gap: 20px;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .hero .subtitle {
@@ -67,7 +68,7 @@
     padding-bottom: 60px;
 }
 
-.post-submission{
+.post-submission {
     width: fit-content;
 }
 
@@ -89,12 +90,13 @@
     margin-bottom: 20px;
     margin-left: 45px;
 }
+
 .see-all-review-btn:hover {
-    color: #61f88b!important;
+    color: #61f88b !important;
 }
 
 
-.user-feedback-input{
+.user-feedback-input {
     position: relative;
     height: 100%;
     display: flex;
@@ -103,7 +105,7 @@
     width: 100%;
 }
 
-.overlay{
+.overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -120,4 +122,29 @@
     border-radius: 50px;
     gap: 20px;
     height: 500px;
+}
+
+@media (max-width: 1023px) {
+    .hero-container {
+        height: 60vh;
+    }
+
+    .hero {
+        gap: 0px;
+    }
+
+    .hero .subtitle {
+        font-size: 18px;
+    }
+
+    .rating-btn {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .review-section {
+        flex-direction: column;
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
 }

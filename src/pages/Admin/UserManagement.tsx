@@ -67,7 +67,7 @@ const UserManagement = () => {
 
     return (
         <>
-            <Table columns={columns} dataSource={userData} pagination={false} />
+            <Table scroll={{ x: 'max-content' }} columns={columns} dataSource={userData} pagination={false} />
 
             <Modal
                 title="Edit User Role"

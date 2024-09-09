@@ -71,6 +71,7 @@ const PastBooking = ({ bookings, isLoading }) => {
                 dataSource={data}
                 loading={isLoading}
                 pagination={false}
+                scroll={{ x: 'max-content' }}
             />
         </Card>
     );

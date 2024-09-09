@@ -31,7 +31,7 @@ const UpCommingBocking = ({ bookings }) => {
                                             <img
                                                 alt={booking?.service?.name}
                                                 src={booking?.service?.image || "https://cdni.autocarindia.com/utils/ImageResizer.ashx?n=https://cms.haymarketindia.net/model/uploads/modelimages/Hyundai-Grand-i10-Nios-200120231541.jpg"}
-                                                style={{ height: '300px', objectFit: 'cover', }}
+                                                style={{ maxHeight: '300px', objectFit: 'cover', }}
                                             />
                                         }
                                     >

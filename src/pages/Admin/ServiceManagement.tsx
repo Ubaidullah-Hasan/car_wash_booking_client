@@ -154,7 +154,13 @@ const ServiceManagement = () => {
             >
                 Add Service
             </Button>
-            <Table columns={columns} dataSource={data} loading={isLoading} pagination={false} />
+            <Table
+                columns={columns}
+                dataSource={data}
+                loading={isLoading}
+                pagination={false}
+                scroll={{ x: 'max-content' }}
+            />
 
             <Modal
                 title={currentService ? "Edit Service" : "Add Service"}

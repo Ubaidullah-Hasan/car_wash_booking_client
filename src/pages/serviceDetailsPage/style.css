@@ -12,3 +12,15 @@
     background-color: #37b45ad0 ;
     color: rgba(255, 255, 255, 0.726);
 }
+
+@media (max-width: 768px) {
+    .service-details-page {
+        margin: 20px 0;
+    }
+}
+
+@media (max-width: 700px) {
+    .service-details-page {
+        padding: 10px;
+    }
+}

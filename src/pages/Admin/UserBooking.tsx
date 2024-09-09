@@ -62,7 +62,7 @@ const UserBookings = () => {
         },
     ];
 
-    return <Table columns={columns} dataSource={data} />;
+    return <Table columns={columns} dataSource={data} scroll={{ x: 'max-content' }} />;
 };
 
 export default UserBookings;

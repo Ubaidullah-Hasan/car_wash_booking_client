@@ -72,7 +72,7 @@ const BookingPage = () => {
                 {!slotData ?
                     <EmptyCard isLoading={isLoading} imageWidth='100px' />
                     :
-                    <Col xs={24} md={12}>
+                    <Col xs={24} md={24} lg={12}>
                         <Card
                             cover={<img alt="Service Cover" src={slotData?.service?.image || 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?cs=srgb&dl=pexels-mikebirdy-170811.jpg&fm=jpg'} />}
                             actions={[
@@ -82,10 +82,7 @@ const BookingPage = () => {
                                 <Button className='custom-card-btn' type="default" icon={<ClockCircleOutlined />}>
                                     {slotData?.service.duration} mins
                                 </Button>,
-                                // <Button type="default" icon={<CalendarOutlined />}>
-                                //     {moment(slotData?.date).format("YYYY-MM-DD") || 'Selected Date'}
-                                // </Button>,
-                                <Button className='custom-card-btn' type="default" icon={<ClockCircleOutlined />}>
+                                <Button  className='custom-card-btn' type="default" icon={<ClockCircleOutlined />}>
                                     {slotData?.startTime} - {slotData?.endTime}
                                 </Button>,
                             ]}

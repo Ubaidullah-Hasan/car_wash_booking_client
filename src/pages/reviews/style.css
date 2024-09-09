@@ -1,3 +1,9 @@
 .review-page{
     overflow: scroll;
 }
+
+@media (max-width: 700px) {
+    .review-page {
+        padding: 10px;
+    }
+}

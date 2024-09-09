@@ -8,7 +8,7 @@ const Logo = ({to}) => {
     }
 
     return (
-        <div className="logo" >
+        <div className={`logo `} >
             <span onClick={handleLogo} className="logo-container ">
                 <span className="clv">C</span>
                 <span className="clv">L</span>

@@ -32,3 +32,10 @@
     flex-direction: column;
     gap: 20px;
 }
+
+
+@media (max-width: 700px) {
+    .service-page {
+        padding: 10px;
+    }
+}

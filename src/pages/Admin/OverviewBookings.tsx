@@ -1,4 +1,4 @@
-import { Table, Tag, Space, Card, Typography } from 'antd';
+import { Table, Tag, Card, Typography } from 'antd';
 import { useGetAllBookingQuery } from '../../Redux/features/bookingManagement/bookingManagement.api';
 
 const { Title } = Typography;
@@ -36,19 +36,8 @@ const OverviewBookings = () => {
                 </Tag>
             ),
         },
-        // {
-        //     title: 'Actions',
-        //     key: 'actions',
-        //     render: (_, record) => (
-        //         <Space size="middle">
-        //             <a href={`/bookings/${record.key}`}>View</a>
-        //             <a>Cancel</a>
-        //         </Space>
-        //     ),
-        // },
     ];
 
-    // Sample data for recent bookings (use real data from API)
     const data = bookings?.map((booking, index) => ({
         key: index,
         serviceName: booking?.serviceId?.name,
@@ -65,6 +54,7 @@ const OverviewBookings = () => {
                 dataSource={data}
                 loading={isLoading}
                 pagination={false}
+                scroll={{ x: 'max-content' }}
             />
         </Card>
     );

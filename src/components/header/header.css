@@ -1,7 +1,8 @@
-.custom-header{
+.custom-header {
     border-bottom: 1px solid rgba(209, 209, 209, 0.308) !important;
     position: relative;
 }
+
 .custom-menu {
     margin-right: 40px;
 }
@@ -33,7 +34,7 @@
     font-size: 22px;
 }
 
-.logo-container{
+.logo-container {
     cursor: pointer;
 }
 
@@ -68,6 +69,14 @@
 }
 
 /* Ensure the logo and menu items stack properly on small screens */
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
     
+}
+
+.responsive-header-top{
+    transform: translateY(-1000px);
+    transition: 0.6s;
+}
+.responsive-header-bottom{
+    transition: 0.6s;
 }

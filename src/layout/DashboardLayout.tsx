@@ -9,6 +9,7 @@ import "./style.css"
 import { useState } from 'react';
 import ScrollToTopButton from '../components/scrollButton/ScrollToTopButton';
 import ImmediatedSlot from '../components/ImmediatedSlot';
+import { USER_ROLE } from '../constant/constant';
 const { Header, Content, Footer, Sider } = Layout;
 
 
@@ -140,7 +141,12 @@ const DashboardLayout = () => {
                     <Header className={!isMobile ? "dash-content" : ""} style={{ paddingLeft: 30, background: colorBgContainer }}>
                         <div style={{display: "flex", alignItems: "center", justifyContent:"space-between"}}>
                             <Logo to={`/`} />
-                            <Button type='primary' danger><ImmediatedSlot /></Button>
+                            {
+                                user?.role === USER_ROLE.user &&
+                                <Button type="primary" danger>
+                                    <ImmediatedSlot />
+                                </Button>
+                            }
                         </div>
                     </Header>
                     <Content className={!isMobile ? "dash-content" : ""} style={{ margin: '24px 16px 0', minHeight: "90vh" }}>

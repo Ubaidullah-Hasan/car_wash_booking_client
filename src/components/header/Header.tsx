@@ -8,12 +8,18 @@ import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import { currentUser, logout } from "../../Redux/features/auth/authSlice";
 import ProfileMenu from "./ProfileMenu";
 import Logo from "../Logo";
+import useScreenWidth from "../../Hooks/useScreenWidth";
+import { AiOutlineMenu } from "react-icons/ai";
+import { RxCross2 } from "react-icons/rx";
 
 const MainHeader = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const user = useAppSelector(currentUser);
     const dispatch = useAppDispatch();
+    const screenWidth = useScreenWidth();
+    console.log(screenWidth)
+    const [isToggle, setisToggle] = useState(false);
 
 
     const getDefaultKey = () => {
@@ -71,39 +77,86 @@ const MainHeader = () => {
             className="custom-header"
             style={{ display: "flex", alignItems: "center", justifyContent: "space-between", backgroundColor: 'white' }}>
             <Logo to={"/"} />
+            {
+                screenWidth >= 1024 ?
+                    <>
+                        <Menu
+                            theme="light"
+                            mode="horizontal"
+                            defaultSelectedKeys={[selectedKey]}
+                            onClick={handleMenuClick}
+                            items={items}
+                            style={{ flex: 1, minWidth: 0, justifyContent: "end" }}
+                            className="custom-menu "
+                        />
+                        {/* right side */}
+                        <div>
+                            <Space size={20}>
+                                {
+                                    !user ? <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} className="custom-radio-group">
+                                        <Radio.Button value="start" onClick={() => handleAuth("/signin")} >Sign In</Radio.Button>
+                                        <Radio.Button value="end" onClick={() => handleAuth("/signup")}>Sign Up</Radio.Button>
+                                    </Radio.Group>
+                                        :
+                                        <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} className="custom-radio-group">
+                                            <Radio.Button value="end" onClick={() => dispatch(logout())} >Log Out</Radio.Button>
+                                        </Radio.Group>
+                                }
 
-            <Menu
-                theme="light"
-                mode="horizontal"
-                defaultSelectedKeys={[selectedKey]}
-                onClick={handleMenuClick}
-                items={items}
-                style={{ flex: 1, minWidth: 0, justifyContent: "end" }}
-                className="custom-menu "
-            />
+                                <Button onClick={() => navigate("/services")} className="custom-btn" type="primary" iconPosition="end" icon={<CaretRightOutlined />}>
+                                    Get Started
+                                </Button>
+                            </Space>
+                        </div>
 
-            {/* right side */}
-            <div>
-                <Space size={20}>
-                    {
-                        !user ? <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} className="custom-radio-group">
-                            <Radio.Button value="start" onClick={() => handleAuth("/signin")} >Sign In</Radio.Button>
-                            <Radio.Button value="end" onClick={() => handleAuth("/signup")}>Sign Up</Radio.Button>
-                        </Radio.Group>
-                            :
-                            <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} className="custom-radio-group">
-                                <Radio.Button value="end" onClick={() => dispatch(logout())} >Log Out</Radio.Button>
-                            </Radio.Group>
-                    }
+                        {/* dashboard menu */}
+                        < ProfileMenu />
+                    </>
+                    :
+                    <div
+                        className={isToggle ? "responsive-header-bottom" : "responsive-header-top"}
+                        style={{ display: "flex", flexDirection: "column", backgroundColor: "rgb(54 180 90)", position: "absolute", top: 60, left: 0, zIndex: 30, width: "100%", padding: "20px" }}
+                    >
 
-                    <Button onClick={() => navigate("/services")} className="custom-btn" type="primary" iconPosition="end" icon={<CaretRightOutlined />}>
-                        Get Started
-                    </Button>
-                </Space>
+                        {/* dashboard menu */}
+                        < ProfileMenu />
+
+                        <Menu
+                            mode="vertical"
+                            defaultSelectedKeys={[selectedKey]}
+                            onClick={handleMenuClick}
+                            items={items}
+                            style={{ background: "transparent" }}
+                        />
+
+                        {/* right side */}
+                        <div>
+                            <Space size={20}>
+                                {
+                                    !user ? <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} className="custom-radio-group">
+                                        <Radio.Button value="start" onClick={() => handleAuth("/signin")} >Sign In</Radio.Button>
+                                        <Radio.Button value="end" onClick={() => handleAuth("/signup")}>Sign Up</Radio.Button>
+                                    </Radio.Group>
+                                        :
+                                        <Radio.Group value={position} onChange={(e) => setPosition(e.target.value)} className="custom-radio-group">
+                                            <Radio.Button value="end" onClick={() => dispatch(logout())} >Log Out</Radio.Button>
+                                        </Radio.Group>
+                                }
+                            </Space>
+                        </div>
+                    </div>
+            }
+
+            <div style={{ marginTop: "20px" }}>
+                {
+                    screenWidth >= 1024 ? <></> :
+                        (
+                            isToggle ? <RxCross2
+                                onClick={() => setisToggle(!isToggle)} size={30}
+                            /> : <AiOutlineMenu onClick={() => setisToggle(!isToggle)} size={30} />
+                        )
+                }
             </div>
-
-            {/* dashboard menu */}
-            < ProfileMenu />
 
         </Header>
     );

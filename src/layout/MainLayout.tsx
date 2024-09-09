@@ -1,13 +1,18 @@
 import { Button, ConfigProvider, Layout, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import MainHeader from "../components/header/Header";
 import MainFooter from "../components/footer/MainFooter";
 import ScrollToTopButton from "../components/scrollButton/ScrollToTopButton";
 import ImmediatedSlot from "../components/ImmediatedSlot";
+import { useAppSelector } from "../Redux/hooks";
+import { currentUser } from "../Redux/features/auth/authSlice";
+import { USER_ROLE } from "../constant/constant";
 
 
 const MainLayout = () => {
+    const navigate = useNavigate();
+    const user = useAppSelector(currentUser);
 
     const {
         token: { borderRadiusLG },
@@ -26,7 +31,13 @@ const MainLayout = () => {
             <Layout>
                 <MainHeader />
                 <Content>
-                    <Button type="primary" danger className="float-btn"><ImmediatedSlot /></Button>
+                    {
+                        user?.role === USER_ROLE.user &&
+                        <Button onClick={() => navigate("/dashboard/user/overview")} type="primary" danger className="float-btn">
+                            <ImmediatedSlot />
+                        </Button>
+                    }
+
                     <div
                         style={{
                             background: "#f5f5f5",

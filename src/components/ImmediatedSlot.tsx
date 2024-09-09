@@ -19,19 +19,20 @@ const ImmediatedSlot = () => {
         const currentDateTime = moment(`${current?.slotId?.date} ${current?.slotId?.startTime}`, 'YYYY-MM-DD h:mm A');
 
         if (currentDateTime.isAfter(now) && (!closest || currentDateTime.isBefore(moment(`${closest?.slotId?.date} ${closest?.slotId?.startTime}`, 'YYYY-MM-DD h:mm A')))) {
-            return current; 
+            return current;
         }
 
-        return closest; 
+        return closest;
     }, null);
 
-    console.log(immediateUpcomingSlot);
 
     const bookingDateTime = moment(`${immediateUpcomingSlot?.slotId?.date} ${immediateUpcomingSlot?.slotId?.time}`, 'YYYY-MM-DD h:mm A');
 
 
     return (
-        <Countdown date={String(bookingDateTime)} />
+        immediateUpcomingSlot?.slotId ? 
+        <Countdown date={String(bookingDateTime)} /> 
+        : <></>
     );
 };
 

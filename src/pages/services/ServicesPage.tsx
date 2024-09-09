@@ -4,6 +4,7 @@ import './style.css'
 import SectionTitle from '../../components/SectionTitle';
 import { useGetAllServicesQuery } from '../../Redux/features/serviceManagement/serviceManagement.api';
 import { useNavigate } from 'react-router-dom';
+import useScreenWidth from '../../Hooks/useScreenWidth';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -14,6 +15,7 @@ const ServicesPage = () => {
     const [sortPriceOrder, setSortPriceOrder] = useState<string>('ascend');
     const [sortDurationOrder, setSortDurationOrder] = useState<string>('ascend');
     const { data: services } = useGetAllServicesQuery({ searchTerm, sortDurationOrder, sortPriceOrder });
+    const screenWidth = useScreenWidth();
 
     // Handle search
     const onSearch = (value: string) => {
@@ -38,36 +40,34 @@ const ServicesPage = () => {
                 <SectionTitle title='Car Wash Services' />
 
                 <Row gutter={[80, 16]} style={{ marginBottom: '20px' }}>
-                    <Col xs={24} md={12}>
+                    <Col xs={24} md={24} lg={12}>
                         <Search placeholder="Search services" onSearch={onSearch} enterButton />
                     </Col>
-                    <Col xs={24} md={12}>
-                        <div>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
-                                <div className='service-filter-form'>
-                                    <label htmlFor="price">Price</label>
-                                    <Select
-                                        id='price'
-                                        defaultValue="ascend"
-                                        onChange={(value) => handlePriceSortChange(value)}
-                                        style={{ width: 160, marginRight: 10 }}
-                                    >
-                                        <Option value="ascend">Low to High</Option>
-                                        <Option value="descend">High to Low</Option>
-                                    </Select>
-                                </div>
+                    <Col xs={24} md={24} lg={12}>
+                        <div className={screenWidth <= 530 && "filter-res"} style={{ display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
+                            <div className='service-filter-form'>
+                                <label htmlFor="price">Price</label>
+                                <Select
+                                    id='price'
+                                    defaultValue="ascend"
+                                    onChange={(value) => handlePriceSortChange(value)}
+                                    style={{ width: 160, marginRight: 10 }}
+                                >
+                                    <Option value="ascend">Low to High</Option>
+                                    <Option value="descend">High to Low</Option>
+                                </Select>
+                            </div>
 
-                                <div className='service-filter-form'>
-                                    <label>Duration:</label>
-                                    <Select
-                                        defaultValue="ascend"
-                                        onChange={(value) => handleDurationSortChange(value)}
-                                        style={{ width: 160 }}
-                                    >
-                                        <Option value="ascend">Low to High</Option>
-                                        <Option value="descend">High to Low</Option>
-                                    </Select>
-                                </div>
+                            <div className='service-filter-form'>
+                                <label>Duration:</label>
+                                <Select
+                                    defaultValue="ascend"
+                                    onChange={(value) => handleDurationSortChange(value)}
+                                    style={{ width: 160 }}
+                                >
+                                    <Option value="ascend">Low to High</Option>
+                                    <Option value="descend">High to Low</Option>
+                                </Select>
                             </div>
                         </div>
                     </Col>
@@ -75,7 +75,7 @@ const ServicesPage = () => {
 
                 <Row gutter={[16, 16]}>
                     {services?.data?.map(service => (
-                        <Col xs={24} sm={12} md={8} lg={8} key={service._id}>
+                        <Col xs={24} md={12} lg={12} xl={8} key={service._id}>
                             <Card
                                 bordered={true}
                                 hoverable
@@ -94,7 +94,7 @@ const ServicesPage = () => {
                                         ? `${service.description.substring(0, 100)}...`
                                         : service.description}
                                 </p>
-                                <div style={{display:"flex", alignItems: "center", justifyContent: "space-between"}}>
+                                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                     <p><strong>Price:</strong> ৳{service.price}</p>
                                     <p><strong>Duration:</strong> {service.duration} mins</p>
                                 </div>

@@ -18,7 +18,6 @@ const MainHeader = () => {
     const user = useAppSelector(currentUser);
     const dispatch = useAppDispatch();
     const screenWidth = useScreenWidth();
-    console.log(screenWidth)
     const [isToggle, setisToggle] = useState(false);
 
 
@@ -147,15 +146,17 @@ const MainHeader = () => {
                     </div>
             }
 
-            <div style={{ marginTop: "20px" }}>
-                {
-                    screenWidth >= 1024 ? <></> :
-                        (
-                            isToggle ? <RxCross2
-                                onClick={() => setisToggle(!isToggle)} size={30}
-                            /> : <AiOutlineMenu onClick={() => setisToggle(!isToggle)} size={30} />
-                        )
-                }
+            <div
+                style={{ display: "flex", width: "fit-content", cursor: "pointer" }}
+                onClick={() => setisToggle(!isToggle)}
+            >
+                {screenWidth >= 1024 ? null : (
+                    isToggle ? (
+                        <RxCross2 size={30} />
+                    ) : (
+                        <AiOutlineMenu size={30} />
+                    )
+                )}
             </div>
 
         </Header>

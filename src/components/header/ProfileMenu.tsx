@@ -10,9 +10,7 @@ import useScreenWidth from '../../Hooks/useScreenWidth';
 const ProfileMenu = () => {
     const navigate = useNavigate();
     const user = useAppSelector(currentUser);
-
     const screenWidth = useScreenWidth();
-    console.log(screenWidth)
 
 
     return (

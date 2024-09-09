@@ -78,7 +78,7 @@ const ServiceDetailsPage = () => {
                             <img
                                 alt={service?.name}
                                 src={service?.image || "https://cdni.autocarindia.com/utils/ImageResizer.ashx?n=https://cms.haymarketindia.net/model/uploads/modelimages/Hyundai-Grand-i10-Nios-200120231541.jpg"}
-                                style={{ height: '300px', objectFit: 'cover', borderBottom: "1px solid #dedcdc80" }}
+                                style={{ maxHeight: '300px', objectFit: 'cover', borderBottom: "1px solid #dedcdc80" }}
                             />
                         }
                     >

@@ -70,7 +70,7 @@
 
 
 .responsive-header-top{
-    transform: translateY(-1000px);
+    transform: translateY(-2000px);
     transition: 0.6s;
 }
 .responsive-header-bottom{

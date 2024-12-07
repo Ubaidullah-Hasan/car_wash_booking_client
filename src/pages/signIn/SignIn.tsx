@@ -11,6 +11,7 @@ import { setUser } from '../../Redux/features/auth/authSlice';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { IoPlayBackOutline } from 'react-icons/io5';
 
 type FieldType = {
     email?: string;
@@ -49,21 +50,21 @@ const SignIn = () => {
     };
 
     return (
-    <div className='form-bg'>
-        <Row justify="center" align={"middle"} style={{ height: "100vh" }}>
-                <Col xs={20} md={12} lg={10} xl={7}> 
-                <Form
-                    className='custom-form'
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                    layout="vertical"
-                >
-                    {
-                        profileImg && <Form.Item className='profileImg-container'>
-                            <img src={profileImg} className='profileImg' />
-                        </Form.Item>
-                    }
+        <div className='form-bg'>
+            <Row justify="center" align={"middle"} style={{ height: "100vh" }}>
+                <Col xs={20} md={12} lg={10} xl={7}>
+                    <Form
+                        className='custom-form'
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        layout="vertical"
+                    >
+                        {
+                            profileImg && <Form.Item className='profileImg-container'>
+                                <img src={profileImg} className='profileImg' />
+                            </Form.Item>
+                        }
 
                         <Form.Item
                             name="email"
@@ -72,6 +73,7 @@ const SignIn = () => {
                                 { type: 'email', message: 'The input is not a valid email!' },
                                 { required: true, message: 'Please input your email!' },
                             ]}
+                            initialValue={"hm2964133@gmail.com"}
                         >
                             <Input prefix={<MailOutlined />} placeholder="Enter your email" />
                         </Form.Item>
@@ -81,29 +83,41 @@ const SignIn = () => {
                             label="Password"
                             rules={[{ required: true, message: 'Please input your password!' }]}
                             hasFeedback
+                            initialValue={"admin1234"}
                         >
                             <Input.Password prefix={<LockOutlined />} placeholder="Enter your password" />
                         </Form.Item>
 
-                    <Form.Item<FieldType>
-                        name="remember"
-                        valuePropName="checked"
-                    >
-                        <Checkbox>Remember me</Checkbox>
-                    </Form.Item>
+                        <Form.Item<FieldType>
+                            name="remember"
+                            valuePropName="checked"
+                        >
+                            <Checkbox>Remember me</Checkbox>
+                        </Form.Item>
 
-                    <Form.Item
-                    >
+                        <Form.Item
+                        >
                             <Button disabled={isLoading} type="primary" htmlType="submit" block>
-                            Submit
-                        </Button>
-                    </Form.Item>
+                                Submit
+                            </Button>
+                        </Form.Item>
+                        <Form.Item
+                        >
+                            <Button
+                                className='home-btn'
+                                block
+                                href='/'
+                            >
+                                <IoPlayBackOutline />
+                                Back To Home
+                            </Button>
+                        </Form.Item>
                         <p>I have no account! <Link style={{ textDecoration: "underline" }} to={"/signUp"}>Sign UP</Link></p>
-                    {err && <p style={{ color: "red" }}>{err}</p>}
-                </Form>
-            </Col>
-        </Row>
-    </div>
+                        {err && <p style={{ color: "red" }}>{err}</p>}
+                    </Form>
+                </Col>
+            </Row>
+        </div>
     )
 };
 

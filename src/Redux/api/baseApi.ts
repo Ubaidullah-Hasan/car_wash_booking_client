@@ -1,8 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://car-wash-booking-system-server-henna.vercel.app/api',
+    baseUrl: baseUrl,
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = (getState() as RootState).auth.token;

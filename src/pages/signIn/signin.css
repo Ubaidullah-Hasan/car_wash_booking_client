@@ -1,6 +1,23 @@
-.profileImg-container{
+.profileImg-container {
     text-align: center;
 }
-.profileImg{
+
+.profileImg {
     width: 50px;
+}
+
+.home-btn {
+    background: #434343;
+    color: white;
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    margin-top: -20px;
+}
+
+.home-btn:hover {
+    background: #292929 !important;
+    color: white !important;
+    border:transparent !important;
 }

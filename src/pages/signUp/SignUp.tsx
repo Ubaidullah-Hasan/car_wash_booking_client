@@ -4,6 +4,7 @@ import { UserOutlined, MailOutlined, LockOutlined, PhoneOutlined, HomeOutlined }
 import profileImg from "../../assets/icon/profile.png"
 import { Link, useNavigate } from 'react-router-dom';
 import { useRegisterUserMutation } from '../../Redux/features/auth/auth.api';
+import { IoPlayBackOutline } from 'react-icons/io5';
 
 
 
@@ -122,6 +123,17 @@ const SignUp = () => {
                         <Form.Item>
                             <Button type="primary" htmlType="submit" block disabled={creating}>
                                 Register
+                            </Button>
+                        </Form.Item>
+                        <Form.Item
+                        >
+                            <Button
+                                className='home-btn'
+                                block
+                                href='/'
+                            >
+                                <IoPlayBackOutline />
+                                Back To Home
                             </Button>
                         </Form.Item>
                         <p>I have an account! <Link to={"/signIn"} style={{textDecoration: "underline"}}>Sign In</Link></p>

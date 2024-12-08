@@ -32,7 +32,7 @@ const ImmediatedSlot = () => {
     return (
         immediateUpcomingSlot?.slotId ? 
         <Countdown date={String(bookingDateTime)} /> 
-        : <></>
+        : <p>No Upcomming Slot</p>
     );
 };
 

@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import { Table, Button, Modal, Form, Input, Space, Popconfirm, message, Image } from 'antd';
+import { Table, Button, Modal, Form, Input, Space, Popconfirm, message, Image, InputNumber, InputNumberProps, Select } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, FieldTimeOutlined } from '@ant-design/icons';
 import { useCreateServiceMutation, useDeleteServiceMutation, useGetAllServicesQuery, useUpdateServiceMutation } from '../../Redux/features/serviceManagement/serviceManagement.api';
 
 const ServiceManagement = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [currentService, setCurrentService] = useState(null);
+    const [offerValue, setOfferValue] = useState(0);
+    const [isBestSale, setIsBestSale] = useState(false);
+    const [isPopular, setIsPopular] = useState(false);
     const [form] = Form.useForm();
     const { data: servicesResponse, isLoading } = useGetAllServicesQuery(undefined);
     const servicesData = servicesResponse?.data;
@@ -28,6 +31,10 @@ const ServiceManagement = () => {
         setCurrentService(null);
     };
 
+    const onChange: InputNumberProps['onChange'] = (value) => {
+        setOfferValue(value as number);
+    };
+
     const handleOk = async () => {
         try {
             const values = await form.validateFields(); // Await validation
@@ -37,7 +44,10 @@ const ServiceManagement = () => {
                 description: values.description,
                 price: Number(values.price),
                 duration: Number(values.duration),
-            };
+                offer: offerValue,
+                isBestSale,
+                isPopular,
+            }; console.log(data);
 
             if (currentService) {
                 // If updating an existing service
@@ -197,31 +207,46 @@ const ServiceManagement = () => {
                     >
                         <Input type="number" />
                     </Form.Item>
-                    {/* {uploadField ? (
-                        <Form.Item
-                            name="image"
-                            label="Upload Image"
-                            valuePropName="fileList"
-                            getValueFromEvent={(e) => {
-                                if (Array.isArray(e)) {
-                                    return e;
-                                }
-                                return e?.fileList;
-                            }}
-                            rules={[{ required: true, message: 'Please upload an image!' }]}
-                        >
-                            <Upload
-                                name="image"
-                                listType="picture"
-                                maxCount={1}
-                                beforeUpload={() => false} // Prevent auto upload
-                            >
-                                <Button icon={<UploadOutlined />}>Click to upload</Button>
-                            </Upload>
-                        </Form.Item>
-                    ) : null
-                    } */}
 
+                    <Form.Item>
+                        <label htmlFor="offer">Offer</label>
+                        <InputNumber<number>
+                            defaultValue={0}
+                            min={0}
+                            max={100}
+                            formatter={(value) => `${value}%`}
+                            parser={(value) => value?.replace('%', '') as unknown as number}
+                            onChange={onChange}
+                            style={{ width: '100%', marginTop: '8px' }}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Popular Service"
+                        rules={[{ required: true, message: "Please select one!" }]}
+                    >
+                        <Select
+                            defaultValue={false}
+                            onChange={(value) => setIsPopular(value)}
+                            options={[
+                                { value: true, label: "True" },
+                                { value: false, label: "False" },
+                            ]}
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        label="Best Sale"
+                        rules={[{ required: true, message: "Please select one!" }]}
+                    >
+                        <Select
+                            defaultValue={false}
+                            onChange={(value) => setIsBestSale(value)}
+                            options={[
+                                { value: true, label: "True" },
+                                { value: false, label: "False" },
+                            ]}
+                        />
+                    </Form.Item>
                 </Form>
             </Modal>
         </>

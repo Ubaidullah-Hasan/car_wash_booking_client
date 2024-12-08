@@ -68,7 +68,7 @@ const ReviewSection = () => {
                 className='white-color'
             />
 
-            <div className="post-submission">
+            <div className="post-submission ">
                 <Statistic
                     title="Overall Rating"
                     value={overallRating}
@@ -98,54 +98,57 @@ const ReviewSection = () => {
             </div>
 
             {/* user input review */}
-            <div className='user-feedback-input'>
-                {!user?.email &&
-                    <div className="overlay">
-                        <h2 className="white-color">Please log in to leave a review</h2>
-                        <Button size='large' className='login-btn' type="primary" onClick={handleLoginRedirect}>
-                            Login
-                        </Button>
-                    </div>
-                }
-                <div style={{ textAlign: "end" }}>
-                    <Rate
-                        value={user && rating}
-                        onChange={(value) => setRating(value)}
-                        style={{ color: '#ffcc00', fontSize: '24px' }}
-                        className='custom-rating'
-                        disabled={user?.role === 'admin'}
-                    />
-                    <Input.TextArea
-                        value={user?.role === 'admin' ? "Hi, Admin Welcome! You can't give it 🥲" : feedback}
-                        onChange={(e) => setFeedback(e.target.value)}
-                        rows={4}
-                        readOnly={user?.role === 'admin'}
-                        placeholder="Leave your feedback"
-                        style={{ borderRadius: '10px', marginTop: '10px', height: "200px", padding: "20px", color: `${user?.role === "admin" ? "#808080" : "black"}` }}
-                    />
-                    {
-                        userReview ?
-                            <Button
-                                type="primary"
-                                onClick={handleFeedbackSubmit}
-                                style={{ marginTop: '10px', textTransform: 'uppercase' }}
-                                disabled={isCreating}
-                                size='large'
-                            >
-                                Submited < CheckOutlined />
-                            </Button> :
-                            <Button
-                                type="primary"
-                                onClick={handleFeedbackSubmit}
-                                style={{ marginTop: '10px' }}
-                                disabled={isCreating || (user?.role === 'admin')}
-                                size='large'
-                            >
-                                Submit Review <ArrowRightOutlined />
+            {
+                user?.role && 
+                <div className='user-feedback-input'>
+                    {!user?.email &&
+                        <div className="overlay">
+                            <h2 className="white-color">Please log in to leave a review</h2>
+                            <Button size='large' className='login-btn' type="primary" onClick={handleLoginRedirect}>
+                                Login
                             </Button>
+                        </div>
                     }
+                    <div style={{ textAlign: "end" }}>
+                        <Rate
+                            value={user && rating}
+                            onChange={(value) => setRating(value)}
+                            style={{ color: '#ffcc00', fontSize: '24px' }}
+                            className='custom-rating'
+                            disabled={user?.role === 'admin'}
+                        />
+                        <Input.TextArea
+                            value={user?.role === 'admin' ? "Hi, Admin Welcome! You can't give it 🥲" : feedback}
+                            onChange={(e) => setFeedback(e.target.value)}
+                            rows={4}
+                            readOnly={user?.role === 'admin'}
+                            placeholder="Leave your feedback"
+                            style={{ borderRadius: '10px', marginTop: '10px', height: "200px", padding: "20px", color: `${user?.role === "admin" ? "#808080" : "black"}` }}
+                        />
+                        {
+                            userReview ?
+                                <Button
+                                    type="primary"
+                                    onClick={handleFeedbackSubmit}
+                                    style={{ marginTop: '10px', textTransform: 'uppercase' }}
+                                    disabled={isCreating}
+                                    size='large'
+                                >
+                                    Submited < CheckOutlined />
+                                </Button> :
+                                <Button
+                                    type="primary"
+                                    onClick={handleFeedbackSubmit}
+                                    style={{ marginTop: '10px' }}
+                                    disabled={isCreating || (user?.role === 'admin')}
+                                    size='large'
+                                >
+                                    Submit Review <ArrowRightOutlined />
+                                </Button>
+                        }
+                    </div>
                 </div>
-            </div>
+            }
 
         </section>
     );

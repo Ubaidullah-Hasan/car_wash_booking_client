@@ -69,7 +69,7 @@
 }
 
 .post-submission {
-    width: fit-content;
+    width: 1000px;
 }
 
 .review-section .ant-statistic-title,
@@ -146,5 +146,9 @@
         flex-direction: column;
         padding-top: 60px;
         padding-bottom: 60px;
+    }
+
+    .post-submission {
+        width: fit-content;
     }
 }

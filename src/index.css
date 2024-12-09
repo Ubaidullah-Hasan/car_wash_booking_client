@@ -40,6 +40,9 @@ h2 {
 .white-color {
     color: white !important;
 }
+.black-color {
+    color: rgb(21, 21, 21) !important;
+}
 
 .custom-btn {
     text-transform: uppercase;

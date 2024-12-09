@@ -34,11 +34,12 @@
     padding: 0 10px;
 }
 
-/* shape maker */
+/* shape maker Featured or popular section*/
 .custom-shape-divider-top-1724903460 {
     position: absolute;
     top: 0;
     left: 0;
+    bottom: 0;
     width: 100%;
     overflow: hidden;
     line-height: 0;
@@ -53,6 +54,12 @@
 
 .custom-shape-divider-top-1724903460 .shape-fill {
     fill: #37b45a;
+}
+
+/* shape maker best sale section*/
+.best-sale {
+    transform: rotate(180deg);
+    background-color: rgba(234, 234, 234, 0.761);
 }
 
 .review-section {

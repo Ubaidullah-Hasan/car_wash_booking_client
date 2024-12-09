@@ -12,6 +12,16 @@
     background-color: #37b45ad0 ;
     color: rgba(255, 255, 255, 0.726);
 }
+.slot-not-abailable{
+    color: rgb(193, 21, 21);
+    padding: 10px;
+    border: 1px solid rgb(193, 21, 21);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(176, 2, 2, 0.085);
+}
 
 @media (max-width: 768px) {
     .service-details-page {

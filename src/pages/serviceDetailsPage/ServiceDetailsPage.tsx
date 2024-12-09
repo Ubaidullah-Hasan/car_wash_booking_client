@@ -19,6 +19,7 @@ const ServiceDetailsPage = () => {
     const user = useAppSelector(currentUser);
     const { data: service } = useGetSingleServiceQuery(serviceId); // use into card
     const { data: slots } = useGetSlotByServiceIdQuery(serviceId, { skip: !(service?.data) });
+    console.log(slots)
 
     const [selectedSlot, setSelectedSlot] = useState<Record<string, any>>(
         JSON.parse(localStorage.getItem("bookings")) || { serviceId: null, slotId: null }
@@ -84,15 +85,20 @@ const ServiceDetailsPage = () => {
                     >
                         <Title level={3}>{service?.data?.name}</Title>
                         <Text>{service?.data?.description}</Text>
-                        <p><strong>Price:</strong> ${service?.data?.price}</p>
+                        <p><strong>Price:</strong> ${service?.data?.discountePrice}</p>
                         <p><strong>Duration:</strong> {service?.data?.duration} mins</p>
                     </Card>
                 </Col>
                 <Col xs={24} md={12}>
                     <Card>
                         <Title level={3} style={{ textAlign: "center", textTransform: "uppercase" }}>Available Slots</Title>
-                        
+
                         <div style={{ marginTop: '20px' }}>
+                            {slots?.data.length === 0 &&
+                                <div className='slot-not-abailable'>
+                                    <p>Slot not available!</p>
+                                </div>
+                            }
                             {slots?.data?.map(slot => (
                                 <SlotButton
                                     key={slot._id}
@@ -112,7 +118,7 @@ const ServiceDetailsPage = () => {
                             Book This Service
                         </Button>
                         < Toaster />
-                        {user?.role === USER_ROLE.admin && <p style={{color: "red"}}>Admin Can't Access This!</p>}
+                        {user?.role === USER_ROLE.admin && <p style={{ color: "red" }}>Admin Can't Access This!</p>}
                     </Card>
                 </Col>
             </Row>

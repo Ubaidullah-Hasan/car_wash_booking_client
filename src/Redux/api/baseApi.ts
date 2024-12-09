@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
-const baseUrl = import.meta.env.VITE_BACKEND_URL;
+// const baseUrl = import.meta.env.VITE_BACKEND_URL;
+const baseUrl = "https://car-wash-booking-system-server-henna.vercel.app/api";
 
 
 const baseQuery = fetchBaseQuery({

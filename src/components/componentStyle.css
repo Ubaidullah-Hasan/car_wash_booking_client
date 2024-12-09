@@ -9,6 +9,9 @@
 .section-title h2 {
     color: rgb(28, 32, 47);
     text-transform: capitalize;
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-underline-offset: 10px;
 }
 
 .card-btn{

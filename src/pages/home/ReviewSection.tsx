@@ -8,6 +8,7 @@ import { currentUser } from '../../Redux/features/auth/authSlice';
 import { useCreateReviewMutation, useGetAllReviewsQuery, useGetReviewByUserIdQuery } from '../../Redux/features/reviewManagement/ReviewManagement.api';
 import { useGetUserByEmailQuery } from '../../Redux/features/user/userManagement.api';
 import ReviewCard from '../../components/ReviewCard';
+import { USER_ROLE } from '../../constant/constant';
 
 const ReviewSection = () => {
     const navigate = useNavigate();
@@ -99,7 +100,7 @@ const ReviewSection = () => {
 
             {/* user input review */}
             {
-                user?.role && 
+                user?.role === USER_ROLE.user && 
                 <div className='user-feedback-input'>
                     {!user?.email &&
                         <div className="overlay">

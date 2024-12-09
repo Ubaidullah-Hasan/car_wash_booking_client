@@ -3,6 +3,7 @@ import '../homeStyle.css'
 import FeaturedServices from '../FeaturedServices';
 import ReviewSection from '../ReviewSection';
 import BestSale from '../BestSale';
+import OfferServices from '../OfferServices';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <FeaturedServices />
             <BestSale />
             <ReviewSection />
+            <OfferServices />
         </div>
     );
 };

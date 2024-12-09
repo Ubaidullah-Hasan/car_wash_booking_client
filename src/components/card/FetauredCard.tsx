@@ -12,6 +12,8 @@ type TProps = {
     price: number
     duration: string
     _id: string
+    discountePrice: number
+    offer: number
 }
 
 const FetauredCard = ({ data }: { data: TProps }) => {
@@ -26,7 +28,13 @@ const FetauredCard = ({ data }: { data: TProps }) => {
                 />
             }
             actions={[
-                <span className='text-green' style={{ fontWeight: "700" }}>{data?.price} ৳</span>,
+                <span className='text-green' style={{ fontWeight: "700" }}> ৳ {data?.offer > 0 ?
+                    <>
+                        <span>{data?.discountePrice}</span>
+                        <span style={{ color: "#B4B4B8", textDecorationLine: "line-through", marginLeft: "4px" }}>{data?.price}</span>
+                    </>
+                    : data?.price} 
+                </span>,
                 <span className='text-green' style={{ display: "flex", justifyContent: "center", alignItems: "center", }}> <IoTimeOutline />  {data?.duration} Mins</span>,
                 <button className='card-btn' onClick={() => navigate(`/services/${data?._id}`)}>Book Now <DoubleRightOutlined /></button>
             ]}

@@ -2,12 +2,12 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import FetauredCard from '../../components/card/FetauredCard';
 import SectionTitle from '../../components/SectionTitle';
-import { useGetPopularServicesQuery } from '../../Redux/features/serviceManagement/serviceManagement.api';
+import { useGetOffersServicesQuery } from '../../Redux/features/serviceManagement/serviceManagement.api';
 
 
 
-const FeaturedServices = () => {
-    const { data: servicesData, isSuccess } = useGetPopularServicesQuery({});
+const OfferServices = () => {
+    const { data: servicesData, isSuccess } = useGetOffersServicesQuery({});
 
     const responsive = {
         superLargeDesktop: {
@@ -37,14 +37,14 @@ const FeaturedServices = () => {
             </div>
             <SectionTitle
                 className='white-color'
-                title='Our Most Popular Services'
+                title='Offer Services'
             />
             < Carousel
                 responsive={responsive}
                 autoPlay={true}
                 itemClass='carousel-gap'
             >
-                { isSuccess &&
+                {isSuccess &&
                     servicesData?.data.map((service) => (
                         <FetauredCard key={service?._id} data={service} />
                     ))
@@ -56,4 +56,4 @@ const FeaturedServices = () => {
 
 };
 
-export default FeaturedServices;
+export default OfferServices;

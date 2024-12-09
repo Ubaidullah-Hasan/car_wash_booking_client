@@ -95,7 +95,17 @@ const ServicesPage = () => {
                                         : service.description}
                                 </p>
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                                    <p><strong>Price:</strong> ৳{service.price}</p>
+                                    <p><strong>Price:</strong>
+                                        {service?.offer > 0 ?
+                                            <>
+                                                <span
+                                                    style={{marginLeft: "4px", fontWeight: "bold" }}
+                                                >৳ {service.discountePrice}</span>
+                                                <span style={{ textDecorationLine: "line-through", color: "#A9A9A9", marginLeft: "4px" }}>{service.price}</span>
+                                            </>:
+                                            <span style={{marginLeft: "4px", fontWeight: "bold" }}>{service.price}</span>
+                                        }
+                                    </p>
                                     <p><strong>Duration:</strong> {service.duration} mins</p>
                                 </div>
                             </Card>

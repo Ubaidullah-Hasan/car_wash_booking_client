@@ -12,6 +12,32 @@ const serviceManagementApi = baseApi.injectEndpoints({
             },
             providesTags: ["services"]
         }),
+        getPopularServices: builder.query({
+            query: () => {
+                return {
+                    url: "/services/popular",
+                    method: "GET",
+                };
+            },
+            providesTags: ["services"]
+        }),
+        getBestsaleServices: builder.query({
+            query: () => {
+                return {
+                    url: "/services/bestsale",
+                    method: "GET"
+                };
+            },
+            providesTags: ["services"]
+        }),
+        getOffersServices: builder.query({
+            query: () => {
+                return {
+                    url: "/services/offers",
+                    method: "GET"                };
+            },
+            providesTags: ["services"]
+        }),
         getSingleService: builder.query({
             query: (serviceId) => {
                 return {
@@ -55,7 +81,7 @@ const serviceManagementApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useGetAllServicesQuery, useGetSingleServiceQuery, useCreateServiceMutation, useUpdateServiceMutation, useDeleteServiceMutation } = serviceManagementApi;
+export const { useGetAllServicesQuery, useGetSingleServiceQuery, useCreateServiceMutation, useUpdateServiceMutation, useDeleteServiceMutation, useGetPopularServicesQuery, useGetBestsaleServicesQuery, useGetOffersServicesQuery } = serviceManagementApi;
 
 
 

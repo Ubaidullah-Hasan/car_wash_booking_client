@@ -47,7 +47,7 @@ const ServiceManagement = () => {
                 offer: offerValue,
                 isBestSale,
                 isPopular,
-            }; console.log(data);
+            };
 
             if (currentService) {
                 // If updating an existing service
@@ -69,7 +69,6 @@ const ServiceManagement = () => {
 
             setIsModalVisible(false);
             setCurrentService(null);
-
         } catch (error) {
             // Handle validation errors or other errors
             message.error('Validation failed or there was an error!');
